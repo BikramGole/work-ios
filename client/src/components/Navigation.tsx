@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Moon, Sun } from 'lucide-react';
+import { useTheme } from '@/contexts/ThemeContext';
 
 interface NavigationProps {
   activeChapter: string;
@@ -9,6 +10,7 @@ interface NavigationProps {
 
 export default function Navigation({ activeChapter, chapters, onChapterClick }: NavigationProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const { theme, toggleTheme, switchable } = useTheme();
 
   return (
     <>
@@ -57,12 +59,24 @@ export default function Navigation({ activeChapter, chapters, onChapterClick }: 
           </div>
 
           {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 hover:bg-secondary rounded transition-colors"
-          >
-            {isOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
+          <div className="flex items-center gap-2">
+            {switchable && toggleTheme && (
+              <button
+                onClick={toggleTheme}
+                aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+                className="p-2 hover:bg-secondary rounded transition-colors"
+              >
+                {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+              </button>
+            )}
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="md:hidden p-2 hover:bg-secondary rounded transition-colors"
+              aria-label="Toggle menu"
+            >
+              {isOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Menu */}
