@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { Zap, Hand } from 'lucide-react';
+import AnimatedCounter from '@/components/AnimatedCounter';
 
 export default function MultiTouchSection() {
   const [touchPoint, setTouchPoint] = useState<{ x: number; y: number } | null>(null);
@@ -89,6 +90,16 @@ export default function MultiTouchSection() {
                 </div>
               </motion.div>
             ))}
+          </div>
+        </motion.div>
+
+        {/* Performance stats */}
+        <motion.div variants={itemVariants} className="bg-card border border-border rounded p-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <AnimatedCounter end={120} suffix="Hz" label="Touch Sampling" />
+            <AnimatedCounter end={0.1} suffix="ms" label="Response Latency" decimals={1} />
+            <AnimatedCounter end={16} label="Simultaneous Touches" />
+            <AnimatedCounter end={99} suffix="%" label="Palm Rejection Accuracy" />
           </div>
         </motion.div>
 

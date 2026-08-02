@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
-import { Sparkles, Zap, Eye } from 'lucide-react';
+import { Sparkles, Zap, Eye, RotateCcw } from 'lucide-react';
+import AnimatedCounter from '@/components/AnimatedCounter';
 
 export default function FutureSection() {
   const containerVariants = {
@@ -56,6 +57,16 @@ export default function FutureSection() {
           </div>
         </motion.div>
 
+        {/* Future stats */}
+        <motion.div variants={itemVariants} className="bg-card border border-border rounded p-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <AnimatedCounter end={35} suffix=" TOPS" label="Neural Engine" />
+            <AnimatedCounter end={2.5} suffix="B" label="Transistors (A18 Pro)" decimals={1} />
+            <AnimatedCounter end={6} suffix=" Gen" label="A-Series per Decade" />
+            <AnimatedCounter end={120} suffix="Hz" label="ProMotion Display" />
+          </div>
+        </motion.div>
+
         {/* Vision Statement */}
         <motion.div variants={itemVariants} className="bg-card border border-border rounded p-8">
           <h3 className="text-xl font-bold mb-6">Engineering Philosophy</h3>
@@ -90,9 +101,11 @@ export default function FutureSection() {
           <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="px-8 py-3 bg-primary text-primary-foreground rounded font-semibold hover:bg-primary/90 transition-colors duration-200"
+            onClick={() => document.getElementById('hero')?.scrollIntoView({ behavior: 'smooth' })}
+            className="px-8 py-3 bg-primary text-primary-foreground rounded font-semibold hover:bg-primary/90 transition-colors duration-200 inline-flex items-center gap-2"
           >
-            Explore More
+            <RotateCcw size={16} />
+            Start the Journey Again
           </motion.button>
         </motion.div>
       </motion.div>

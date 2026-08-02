@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Zap, Thermometer } from 'lucide-react';
+import AnimatedCounter from '@/components/AnimatedCounter';
 
 export default function BatteryThermalSection() {
   const containerVariants = {
@@ -54,6 +55,12 @@ export default function BatteryThermalSection() {
         {/* Battery Performance */}
         <motion.div variants={itemVariants} className="bg-card border border-border rounded p-8">
           <h3 className="text-xl font-bold mb-8">Battery Performance</h3>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
+            <AnimatedCounter end={1000} suffix="+" label="Cycle Life" />
+            <AnimatedCounter end={33} suffix="hr" label="Video Playback" />
+            <AnimatedCounter end={25} suffix="W" label="Wireless Charging" />
+            <AnimatedCounter end={50} suffix="%" label="Charge in 30 min" />
+          </div>
           <div className="grid md:grid-cols-2 gap-8">
             <div>
               <h4 className="font-semibold text-primary mb-4">Battery Health</h4>
