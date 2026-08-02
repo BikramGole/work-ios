@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { SectionHeader } from '@/components/SectionHeader';
+import { GlowCard, SectionHeader } from '@/components/SectionHeader';
 import { useState } from 'react';
 import { Zap, Eye } from 'lucide-react';
 import OledVisual from '@/components/visuals/OledVisual';
@@ -50,10 +50,10 @@ export default function DisplayTechnologySection() {
           <div className="grid md:grid-cols-2 gap-6">
             {specs.map((spec, idx) => (
               <motion.div key={idx} whileHover={{ borderColor: 'var(--color-primary)' }}>
-                <div className="p-6 bg-card border border-border rounded transition-colors duration-200">
+                <GlowCard>
                   <p className="text-xs text-muted-foreground mb-2">{spec.label}</p>
                   <p className="text-2xl font-bold text-primary">{spec.value}</p>
-                </div>
+                </GlowCard>
               </motion.div>
             ))}
           </div>

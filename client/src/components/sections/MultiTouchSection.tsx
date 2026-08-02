@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { SectionHeader } from '@/components/SectionHeader';
+import { GlowCard, SectionHeader } from '@/components/SectionHeader';
 import { useState } from 'react';
 import { Zap, Hand } from 'lucide-react';
 import AnimatedCounter from '@/components/AnimatedCounter';
@@ -62,8 +62,8 @@ export default function MultiTouchSection() {
                 className="absolute pointer-events-none"
                 style={{ left: touchPoint.x, top: touchPoint.y, transform: 'translate(-50%, -50%)' }}
               >
-                <div className="w-12 h-12 bg-primary/20 rounded-full blur-lg" />
-                <div className="absolute inset-2 w-8 h-8 bg-primary rounded-full" style={{ left: '50%', top: '50%', transform: 'translate(-50%, -50%)' }} />
+                
+                
               </motion.div>
             )}
 
@@ -83,11 +83,11 @@ export default function MultiTouchSection() {
               { title: 'Gesture Processing', desc: 'Real-time gesture recognition' },
             ].map((tech, idx) => (
               <motion.div key={idx} whileHover={{ borderColor: 'var(--color-primary)' }}>
-                <div className="p-6 bg-card border border-border rounded transition-colors duration-200">
+                <GlowCard>
                   <Hand className="w-6 h-6 text-primary mb-3" strokeWidth={1.5} />
                   <h4 className="font-semibold mb-2">{tech.title}</h4>
                   <p className="text-sm text-muted-foreground">{tech.desc}</p>
-                </div>
+                </GlowCard>
               </motion.div>
             ))}
           </div>

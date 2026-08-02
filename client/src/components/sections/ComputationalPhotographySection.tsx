@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { SectionHeader } from '@/components/SectionHeader';
+import { GlowCard, SectionHeader } from '@/components/SectionHeader';
 import { Camera } from 'lucide-react';
 
 export default function ComputationalPhotographySection() {
@@ -51,7 +51,7 @@ export default function ComputationalPhotographySection() {
                 <div className="w-28 h-12 bg-card border border-primary/30 rounded flex items-center justify-center font-medium text-sm">
                   {stage}
                 </div>
-                <div className="flex-1 h-px bg-border" />
+                
               </motion.div>
             ))}
           </div>
@@ -67,11 +67,11 @@ export default function ComputationalPhotographySection() {
               { title: 'Smart HDR 5', desc: 'Extreme dynamic range blending' },
             ].map((feature, idx) => (
               <motion.div key={idx} whileHover={{ borderColor: 'var(--color-primary)' }}>
-                <div className="p-6 bg-card border border-border rounded transition-colors duration-200">
+                <GlowCard>
                   <Camera className="w-6 h-6 text-primary mb-3" strokeWidth={1.5} />
                   <h4 className="font-semibold mb-2">{feature.title}</h4>
                   <p className="text-sm text-muted-foreground">{feature.desc}</p>
-                </div>
+                </GlowCard>
               </motion.div>
             ))}
           </div>

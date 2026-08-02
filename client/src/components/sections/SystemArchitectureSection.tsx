@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Cpu, Zap, Link2 } from 'lucide-react';
-import { SectionHeader } from '@/components/SectionHeader';
+import { GlowCard, SectionHeader } from '@/components/SectionHeader';
 
 export default function SystemArchitectureSection() {
   const containerVariants = {
@@ -61,11 +61,11 @@ export default function SystemArchitectureSection() {
             const Icon = feature.icon;
             return (
               <motion.div key={idx} variants={itemVariants}>
-                <div className="p-8 bg-card border border-border rounded hover:border-primary/50 transition-colors duration-200">
+                <GlowCard>
                   <Icon className="w-8 h-8 text-primary mb-4" strokeWidth={1.5} />
                   <h3 className="text-lg font-semibold mb-3">{feature.title}</h3>
                   <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
-                </div>
+                </GlowCard>
               </motion.div>
             );
           })}

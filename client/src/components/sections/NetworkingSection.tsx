@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { SectionHeader } from '@/components/SectionHeader';
+import { GlowCard, SectionHeader } from '@/components/SectionHeader';
 import { Wifi, Radio, Zap } from 'lucide-react';
 
 export default function NetworkingSection() {
@@ -43,7 +43,7 @@ export default function NetworkingSection() {
               const Icon = tech.icon;
               return (
                 <motion.div key={idx} whileHover={{ borderColor: 'var(--color-primary)' }}>
-                  <div className="p-6 bg-card border border-border rounded transition-colors duration-200">
+                  <GlowCard>
                     <div className="flex items-start justify-between mb-3">
                       <div className="flex items-center gap-3">
                         <Icon className="w-6 h-6 text-primary" strokeWidth={1.5} />
@@ -54,7 +54,7 @@ export default function NetworkingSection() {
                       </div>
                     </div>
                     <p className="text-sm text-muted-foreground">{tech.desc}</p>
-                  </div>
+                  </GlowCard>
                 </motion.div>
               );
             })}
@@ -65,7 +65,7 @@ export default function NetworkingSection() {
         <motion.div variants={itemVariants}>
           <h3 className="text-2xl font-bold mb-8">Performance Metrics</h3>
           <div className="grid md:grid-cols-2 gap-6">
-            <div className="p-8 bg-card border border-border rounded">
+            <GlowCard>
               <h4 className="font-semibold text-primary mb-4">5G Speeds</h4>
               <div className="space-y-3">
                 <div>
@@ -74,7 +74,7 @@ export default function NetworkingSection() {
                     <span className="text-sm font-bold">1+ Gbps</span>
                   </div>
                   <div className="h-2 bg-secondary rounded">
-                    <div className="h-full bg-primary rounded" style={{ width: '90%' }} />
+                    
                   </div>
                 </div>
                 <div>
@@ -83,12 +83,12 @@ export default function NetworkingSection() {
                     <span className="text-sm font-bold">&lt;20ms</span>
                   </div>
                   <div className="h-2 bg-secondary rounded">
-                    <div className="h-full bg-primary rounded" style={{ width: '95%' }} />
+                    
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="p-8 bg-card border border-border rounded">
+            </GlowCard>
+            <GlowCard>
               <h4 className="font-semibold text-primary mb-4">Wi-Fi 6E</h4>
               <div className="space-y-3">
                 <div>
@@ -97,7 +97,7 @@ export default function NetworkingSection() {
                     <span className="text-sm font-bold">2.4/5/6 GHz</span>
                   </div>
                   <div className="h-2 bg-secondary rounded">
-                    <div className="h-full bg-primary rounded" style={{ width: '88%' }} />
+                    
                   </div>
                 </div>
                 <div>
@@ -106,11 +106,11 @@ export default function NetworkingSection() {
                     <span className="text-sm font-bold">Extended</span>
                   </div>
                   <div className="h-2 bg-secondary rounded">
-                    <div className="h-full bg-primary rounded" style={{ width: '85%' }} />
+                    
                   </div>
                 </div>
               </div>
-            </div>
+            </GlowCard>
           </div>
         </motion.div>
 

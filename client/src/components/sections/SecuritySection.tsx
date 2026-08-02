@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { SectionHeader } from '@/components/SectionHeader';
+import { GlowCard, SectionHeader } from '@/components/SectionHeader';
 import { Lock, Shield, Fingerprint, Key } from 'lucide-react';
 
 export default function SecuritySection() {
@@ -43,11 +43,11 @@ export default function SecuritySection() {
               const Icon = feature.icon;
               return (
                 <motion.div key={idx} whileHover={{ borderColor: 'var(--color-primary)' }}>
-                  <div className="p-6 bg-card border border-border rounded transition-colors duration-200">
+                  <GlowCard>
                     <Icon className="w-6 h-6 text-primary mb-3" strokeWidth={1.5} />
                     <h4 className="font-semibold mb-2">{feature.title}</h4>
                     <p className="text-sm text-muted-foreground">{feature.desc}</p>
-                  </div>
+                  </GlowCard>
                 </motion.div>
               );
             })}
@@ -75,7 +75,7 @@ export default function SecuritySection() {
                   <div className="w-32 h-12 bg-secondary border border-primary/30 rounded flex items-center justify-center font-medium text-sm">
                     {item.label}
                   </div>
-                  <div className="flex-1 mx-4 h-px bg-border" />
+                  
                   <span className="text-sm text-muted-foreground">{item.desc}</span>
                 </motion.div>
               ))}

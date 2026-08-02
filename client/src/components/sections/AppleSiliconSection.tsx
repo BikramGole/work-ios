@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { SectionHeader } from '@/components/SectionHeader';
+import { GlowCard, SectionHeader } from '@/components/SectionHeader';
 import { useState } from 'react';
 import ChipDiagram from '@/components/visuals/ChipDiagram';
 
@@ -45,18 +45,18 @@ export default function AppleSiliconSection() {
 
         {/* Key Specs */}
         <motion.div variants={itemVariants} className="grid md:grid-cols-3 gap-6">
-          <div className="p-6 bg-card border border-border rounded">
+          <GlowCard>
             <div className="text-3xl font-bold text-primary mb-2">3nm</div>
             <p className="text-sm text-muted-foreground">Process Technology</p>
-          </div>
-          <div className="p-6 bg-card border border-border rounded">
+          </GlowCard>
+          <GlowCard>
             <div className="text-3xl font-bold text-primary mb-2">19B+</div>
             <p className="text-sm text-muted-foreground">Transistor Count</p>
-          </div>
-          <div className="p-6 bg-card border border-border rounded">
+          </GlowCard>
+          <GlowCard>
             <div className="text-3xl font-bold text-primary mb-2">35</div>
             <p className="text-sm text-muted-foreground">TOPS (Neural Engine)</p>
-          </div>
+          </GlowCard>
         </motion.div>
 
         {/* Chip Visualization */}

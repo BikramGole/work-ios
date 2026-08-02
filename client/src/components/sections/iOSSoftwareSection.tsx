@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { SectionHeader } from '@/components/SectionHeader';
+import { GlowCard, SectionHeader } from '@/components/SectionHeader';
 import { Layers, Lock, Zap, Cpu } from 'lucide-react';
 
 export default function IOSSoftwareSection() {
@@ -53,7 +53,7 @@ export default function IOSSoftwareSection() {
                     <Icon className="w-5 h-5 text-primary" strokeWidth={1.5} />
                     <span className="font-medium text-sm">{layer.name}</span>
                   </div>
-                  <div className="flex-1 h-px bg-border" />
+                  
                 </motion.div>
               );
             })}
@@ -71,10 +71,10 @@ export default function IOSSoftwareSection() {
               { title: 'Metal Graphics', desc: 'Low-level GPU access' },
             ].map((tech, idx) => (
               <motion.div key={idx} whileHover={{ borderColor: 'var(--color-primary)' }}>
-                <div className="p-6 bg-card border border-border rounded transition-colors duration-200">
+                <GlowCard>
                   <h4 className="font-semibold mb-2">{tech.title}</h4>
                   <p className="text-sm text-muted-foreground">{tech.desc}</p>
-                </div>
+                </GlowCard>
               </motion.div>
             ))}
           </div>

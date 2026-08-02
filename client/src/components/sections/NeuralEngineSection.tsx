@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { SectionHeader } from '@/components/SectionHeader';
+import { GlowCard, SectionHeader } from '@/components/SectionHeader';
 import { Brain, Zap, Mic, Languages } from 'lucide-react';
 import NeuralNetworkVisual from '@/components/visuals/NeuralNetworkVisual';
 
@@ -49,11 +49,11 @@ export default function NeuralEngineSection() {
               const Icon = app.icon;
               return (
                 <motion.div key={idx} whileHover={{ borderColor: 'var(--color-primary)' }}>
-                  <div className="p-6 bg-card border border-border rounded transition-colors duration-200">
+                  <GlowCard>
                     <Icon className="w-6 h-6 text-primary mb-3" strokeWidth={1.5} />
                     <h4 className="font-semibold mb-2">{app.title}</h4>
                     <p className="text-sm text-muted-foreground">{app.desc}</p>
-                  </div>
+                  </GlowCard>
                 </motion.div>
               );
             })}
@@ -70,7 +70,7 @@ export default function NeuralEngineSection() {
                 <span className="text-primary font-semibold">35 TOPS</span>
               </div>
               <div className="h-2 bg-secondary rounded">
-                <div className="h-full bg-primary rounded" style={{ width: '100%' }} />
+                
               </div>
             </div>
           </div>
