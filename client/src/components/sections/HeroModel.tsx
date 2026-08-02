@@ -1,5 +1,5 @@
-import { useLayoutEffect, useCallback, useState, Suspense, lazy } from 'react';
-import { motion } from 'framer-motion';
+import { useLayoutEffect, useCallback, useState, Suspense, lazy, useRef } from 'react';
+import { motion, useInView, useReducedMotion } from 'framer-motion';
 import { Loader2, RotateCcw } from 'lucide-react';
 import { useGLTF } from '@react-three/drei';
 import { Vector3, DoubleSide, PCFShadowMap } from 'three';
@@ -183,26 +183,32 @@ function ModelCanvas({
   autoRotate: boolean;
 }) {
   const [hotspotPositions, setHotspotPositions] = useState<Record<string, [number, number, number]>>({});
+  const containerRef = useRef<HTMLDivElement>(null);
+  const inView = useInView(containerRef, { margin: '0px 0px -10% 0px' });
+  const reducedMotion = useReducedMotion();
 
   const handlePositionsReady = useCallback((positions: Record<string, [number, number, number]>) => {
     setHotspotPositions(positions);
   }, []);
 
   return (
-    <Canvas
-      shadows={{ type: PCFShadowMap }}
-      dpr={[1, 2]}
-      camera={{ position: [0, 0.4, 3.2], fov: 35 }}
-      gl={{ antialias: true, alpha: true }}
-    >
-      <Scene
-        activeHotspot={activeHotspot}
-        onSelect={onSelect}
-        autoRotate={autoRotate}
-        onPositionsReady={handlePositionsReady}
-        hotspotPositions={hotspotPositions}
-      />
-    </Canvas>
+    <div ref={containerRef} className="h-full w-full">
+      <Canvas
+        frameloop={inView ? 'always' : 'never'}
+        shadows={{ type: PCFShadowMap }}
+        dpr={[1, 2]}
+        camera={{ position: [0, 0.4, 3.2], fov: 35 }}
+        gl={{ antialias: true, alpha: true }}
+      >
+        <Scene
+          activeHotspot={activeHotspot}
+          onSelect={onSelect}
+          autoRotate={autoRotate && !reducedMotion}
+          onPositionsReady={handlePositionsReady}
+          hotspotPositions={hotspotPositions}
+        />
+      </Canvas>
+    </div>
   );
 }
 

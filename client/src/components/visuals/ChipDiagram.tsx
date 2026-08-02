@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { useState } from 'react';
 
 interface ChipBlock {
@@ -25,10 +25,12 @@ const BLOCKS: ChipBlock[] = [
 
 export default function ChipDiagram() {
   const [hovered, setHovered] = useState<string | null>(null);
+  const reducedMotion = useReducedMotion();
+  const active = BLOCKS.find((b) => b.id === hovered);
 
   return (
     <div className="rounded-lg border border-border/60 bg-background/40 p-4 relative">
-      <svg viewBox="0 0 540 290" className="w-full h-auto">
+      <svg viewBox="0 0 540 290" className="w-full h-auto" role="img" aria-label="A18 Pro chip die layout with selectable components">
         {/* Die substrate */}
         <motion.rect
           x="20"
@@ -55,7 +57,7 @@ export default function ChipDiagram() {
           whileInView={{ opacity: 0.6 }}
           viewport={{ once: true }}
         >
-          <animateMotion dur="3s" repeatCount="indefinite" path="M20,145 L510,145" />
+          {!reducedMotion && <animateMotion dur="3s" repeatCount="indefinite" path="M20,145 L510,145" />}
         </motion.path>
 
         {BLOCKS.map((block) => (
@@ -63,7 +65,18 @@ export default function ChipDiagram() {
             key={block.id}
             onMouseEnter={() => setHovered(block.id)}
             onMouseLeave={() => setHovered(null)}
-            className="cursor-pointer"
+            onFocus={() => setHovered(block.id)}
+            onBlur={() => setHovered(null)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                setHovered(block.id);
+              }
+            }}
+            tabIndex={0}
+            role="button"
+            aria-label={`${block.name}: ${block.desc}`}
+            className="cursor-pointer focus-visible:outline-none"
           >
             <motion.rect
               x={block.x}
@@ -95,21 +108,21 @@ export default function ChipDiagram() {
         ))}
       </svg>
 
-      {/* Hover description */}
-      <div className="min-h-[40px] mt-2 px-2">
-        {hovered ? (
+      {/* Hover/focus description — announced via aria-live for keyboard & screen-reader users */}
+      <div className="min-h-[40px] mt-2 px-2" aria-live="polite">
+        {active ? (
           <motion.p
-            key={hovered}
+            key={active.id}
             initial={{ opacity: 0, y: 4 }}
             animate={{ opacity: 1, y: 0 }}
             className="text-sm text-muted-foreground text-center"
           >
-            <span className="font-semibold text-foreground">{BLOCKS.find((b) => b.id === hovered)?.name}:</span>{' '}
-            {BLOCKS.find((b) => b.id === hovered)?.desc}
+            <span className="font-semibold text-foreground">{active.name}:</span>{' '}
+            {active.desc}
           </motion.p>
         ) : (
           <p className="text-sm text-muted-foreground text-center opacity-60">
-            Hover over a block to explore the A18 Pro die
+            Hover or tab to a block to explore the A18 Pro die
           </p>
         )}
       </div>

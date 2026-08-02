@@ -1,19 +1,9 @@
 import { motion } from 'framer-motion';
-import { GlowCard, SectionHeader } from '@/components/SectionHeader';
+import { GlowCard, SectionHeader, sectionContainerVariants, sectionItemVariants } from '@/components/SectionHeader';
 import { Camera } from 'lucide-react';
 
 export default function ComputationalPhotographySection() {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.15 } },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 16 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-  };
-
-  const pipeline = [
+const pipeline = [
     'Capture',
     'Sensor Processing',
     'Neural Engine',
@@ -25,7 +15,7 @@ export default function ComputationalPhotographySection() {
   return (
     <div className="container mx-auto px-4 py-24">
       <motion.div
-        variants={containerVariants}
+        variants={sectionContainerVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-100px' }}
@@ -38,7 +28,7 @@ export default function ComputationalPhotographySection() {
         />
 
         {/* Photography Pipeline */}
-        <motion.div variants={itemVariants}>
+        <motion.div variants={sectionItemVariants}>
           <div className="space-y-3">
             {pipeline.map((stage, idx) => (
               <motion.div
@@ -58,7 +48,7 @@ export default function ComputationalPhotographySection() {
         </motion.div>
 
         {/* Key Features */}
-        <motion.div variants={itemVariants}>
+        <motion.div variants={sectionItemVariants}>
           <h3 className="text-2xl font-bold mb-8">Advanced Features</h3>
           <div className="grid md:grid-cols-3 gap-6">
             {[
@@ -78,7 +68,7 @@ export default function ComputationalPhotographySection() {
         </motion.div>
 
         {/* ISP Integration */}
-        <motion.div variants={itemVariants} className="bg-card border border-border rounded p-8">
+        <motion.div variants={sectionItemVariants} className="bg-card border border-border rounded p-8">
           <h3 className="text-xl font-bold mb-4">Image Signal Processor (ISP)</h3>
           <p className="text-muted-foreground leading-relaxed">
             The dedicated ISP works in parallel with the Neural Engine to process raw sensor data in real-time. This hardware-software synergy enables professional-grade image processing directly on the device, supporting ProRes and ProRAW encoding.

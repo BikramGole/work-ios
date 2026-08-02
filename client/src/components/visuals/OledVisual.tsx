@@ -1,10 +1,11 @@
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 
 interface OledVisualProps {
   refreshRate: number;
 }
 
 export default function OledVisual({ refreshRate }: OledVisualProps) {
+  const reducedMotion = useReducedMotion();
   const cells = 12;
   const rows = 8;
   const cell = 36;
@@ -32,15 +33,23 @@ export default function OledVisual({ refreshRate }: OledVisualProps) {
                 fill={isLit ? 'var(--color-primary)' : 'var(--color-card)'}
                 stroke="var(--color-border)"
                 strokeWidth="1"
-                animate={{
-                  opacity: isLit ? [0.35, 1, 0.35] : [1, 0.6, 1],
-                }}
-                transition={{
-                  duration: isLit ? 60 / refreshRate / 1000 * 2 + 0.5 : 2,
-                  repeat: Infinity,
-                  ease: 'linear',
-                  delay: ((r * cells + c) % 10) * 0.05,
-                }}
+                animate={
+                  reducedMotion
+                    ? { opacity: isLit ? 1 : 0.6 }
+                    : {
+                        opacity: isLit ? [0.35, 1, 0.35] : [1, 0.6, 1],
+                      }
+                }
+                transition={
+                  reducedMotion
+                    ? undefined
+                    : {
+                        duration: isLit ? 60 / refreshRate / 1000 * 2 + 0.5 : 2,
+                        repeat: Infinity,
+                        ease: 'linear',
+                        delay: ((r * cells + c) % 10) * 0.05,
+                      }
+                }
               />
             );
           })

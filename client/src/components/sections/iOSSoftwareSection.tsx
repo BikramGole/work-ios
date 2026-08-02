@@ -1,19 +1,9 @@
 import { motion } from 'framer-motion';
-import { GlowCard, SectionHeader } from '@/components/SectionHeader';
+import { GlowCard, SectionHeader, sectionContainerVariants, sectionItemVariants } from '@/components/SectionHeader';
 import { Layers, Lock, Zap, Cpu } from 'lucide-react';
 
 export default function IOSSoftwareSection() {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.15 } },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 16 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-  };
-
-  const layers = [
+const layers = [
     { name: 'Cocoa Touch', desc: 'SwiftUI & UIKit frameworks', icon: Layers },
     { name: 'Media Layer', desc: 'Metal graphics & Audio', icon: Zap },
     { name: 'Core Services', desc: 'Foundation framework', icon: Cpu },
@@ -23,7 +13,7 @@ export default function IOSSoftwareSection() {
   return (
     <div className="container mx-auto px-4 py-24">
       <motion.div
-        variants={containerVariants}
+        variants={sectionContainerVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-100px' }}
@@ -36,7 +26,7 @@ export default function IOSSoftwareSection() {
         />
 
         {/* Layered Architecture */}
-        <motion.div variants={itemVariants}>
+        <motion.div variants={sectionItemVariants}>
           <h3 className="text-2xl font-bold mb-8">System Layers</h3>
           <div className="space-y-3 max-w-md mx-auto">
             {layers.map((layer, idx) => {
@@ -61,7 +51,7 @@ export default function IOSSoftwareSection() {
         </motion.div>
 
         {/* Key Technologies */}
-        <motion.div variants={itemVariants}>
+        <motion.div variants={sectionItemVariants}>
           <h3 className="text-2xl font-bold mb-8">Core Technologies</h3>
           <div className="grid md:grid-cols-2 gap-6">
             {[
@@ -81,7 +71,7 @@ export default function IOSSoftwareSection() {
         </motion.div>
 
         {/* Performance Features */}
-        <motion.div variants={itemVariants} className="bg-card border border-border rounded p-8">
+        <motion.div variants={sectionItemVariants} className="bg-card border border-border rounded p-8">
           <h3 className="text-xl font-bold mb-6">Performance Features</h3>
           <div className="grid md:grid-cols-2 gap-8">
             <div>

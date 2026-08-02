@@ -1,4 +1,5 @@
 import { useTheme } from '@/contexts/ThemeContext';
+import { scrollToId } from '@/lib/scroll';
 
 const chapters = [
   { id: 'architecture', label: 'System Architecture' },
@@ -16,7 +17,7 @@ export default function Footer() {
   const isDark = theme === 'dark';
 
   const scrollTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    scrollToId(id);
   };
 
   return (

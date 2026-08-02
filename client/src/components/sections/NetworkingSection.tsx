@@ -1,19 +1,9 @@
 import { motion } from 'framer-motion';
-import { GlowCard, SectionHeader } from '@/components/SectionHeader';
+import { GlowCard, SectionHeader, sectionContainerVariants, sectionItemVariants } from '@/components/SectionHeader';
 import { Wifi, Radio, Zap } from 'lucide-react';
 
 export default function NetworkingSection() {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.15 } },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 16 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-  };
-
-  const technologies = [
+const technologies = [
     { icon: Radio, name: '5G Modem', spec: 'Sub-6GHz & mmWave', desc: 'AI-driven antenna tuning' },
     { icon: Wifi, name: 'Wi-Fi 6E', spec: '6GHz Band', desc: 'Lower latency, higher speeds' },
     { icon: Radio, name: 'Bluetooth 5.3', spec: 'Low Energy', desc: 'Reliable connections' },
@@ -23,7 +13,7 @@ export default function NetworkingSection() {
   return (
     <div className="container mx-auto px-4 py-24">
       <motion.div
-        variants={containerVariants}
+        variants={sectionContainerVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-100px' }}
@@ -36,7 +26,7 @@ export default function NetworkingSection() {
         />
 
         {/* Connectivity Technologies */}
-        <motion.div variants={itemVariants}>
+        <motion.div variants={sectionItemVariants}>
           <h3 className="text-2xl font-bold mb-8">Wireless Technologies</h3>
           <div className="grid md:grid-cols-2 gap-6">
             {technologies.map((tech, idx) => {
@@ -62,7 +52,7 @@ export default function NetworkingSection() {
         </motion.div>
 
         {/* Network Performance */}
-        <motion.div variants={itemVariants}>
+        <motion.div variants={sectionItemVariants}>
           <h3 className="text-2xl font-bold mb-8">Performance Metrics</h3>
           <div className="grid md:grid-cols-2 gap-6">
             <GlowCard>
@@ -115,7 +105,7 @@ export default function NetworkingSection() {
         </motion.div>
 
         {/* Antenna Design */}
-        <motion.div variants={itemVariants} className="bg-card border border-border rounded p-8">
+        <motion.div variants={sectionItemVariants} className="bg-card border border-border rounded p-8">
           <h3 className="text-xl font-bold mb-4">AI-Driven Antenna Tuning</h3>
           <p className="text-muted-foreground leading-relaxed mb-6">
             The A18 Pro features advanced antenna design with AI-driven tuning that automatically optimizes signal strength and power efficiency based on network conditions. This intelligent system ensures optimal connectivity while minimizing power consumption.

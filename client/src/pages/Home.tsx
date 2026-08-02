@@ -1,22 +1,23 @@
-import { useEffect, useState, lazy, Suspense } from 'react';
+import { useEffect, useState, lazy, Suspense, memo } from 'react';
 import { ChevronDown } from 'lucide-react';
 import HeroSection from '@/components/sections/HeroSection';
 import Navigation from '@/components/Navigation';
 import ProgressIndicator from '@/components/ProgressIndicator';
 import BackToTop from '@/components/BackToTop';
 import Footer from '@/components/Footer';
+import { scrollToId } from '@/lib/scroll';
 
-const SystemArchitectureSection = lazy(() => import('@/components/sections/SystemArchitectureSection'));
-const AppleSiliconSection = lazy(() => import('@/components/sections/AppleSiliconSection'));
-const NeuralEngineSection = lazy(() => import('@/components/sections/NeuralEngineSection'));
-const MultiTouchSection = lazy(() => import('@/components/sections/MultiTouchSection'));
-const DisplayTechnologySection = lazy(() => import('@/components/sections/DisplayTechnologySection'));
-const ComputationalPhotographySection = lazy(() => import('@/components/sections/ComputationalPhotographySection'));
-const BatteryThermalSection = lazy(() => import('@/components/sections/BatteryThermalSection'));
-const IOSSoftwareSection = lazy(() => import('@/components/sections/iOSSoftwareSection'));
-const SecuritySection = lazy(() => import('@/components/sections/SecuritySection'));
-const NetworkingSection = lazy(() => import('@/components/sections/NetworkingSection'));
-const FutureSection = lazy(() => import('@/components/sections/FutureSection'));
+const SystemArchitectureSection = memo(lazy(() => import('@/components/sections/SystemArchitectureSection')));
+const AppleSiliconSection = memo(lazy(() => import('@/components/sections/AppleSiliconSection')));
+const NeuralEngineSection = memo(lazy(() => import('@/components/sections/NeuralEngineSection')));
+const MultiTouchSection = memo(lazy(() => import('@/components/sections/MultiTouchSection')));
+const DisplayTechnologySection = memo(lazy(() => import('@/components/sections/DisplayTechnologySection')));
+const ComputationalPhotographySection = memo(lazy(() => import('@/components/sections/ComputationalPhotographySection')));
+const BatteryThermalSection = memo(lazy(() => import('@/components/sections/BatteryThermalSection')));
+const IOSSoftwareSection = memo(lazy(() => import('@/components/sections/iOSSoftwareSection')));
+const SecuritySection = memo(lazy(() => import('@/components/sections/SecuritySection')));
+const NetworkingSection = memo(lazy(() => import('@/components/sections/NetworkingSection')));
+const FutureSection = memo(lazy(() => import('@/components/sections/FutureSection')));
 
 const chapters = [
   { id: 'hero', title: 'Understanding iOS Engineering', label: 'Intro' },
@@ -33,9 +34,23 @@ const chapters = [
   { id: 'future', title: 'Future Technologies', label: '11' },
 ];
 
+const sections = [
+  { id: 'architecture', Component: SystemArchitectureSection },
+  { id: 'silicon', Component: AppleSiliconSection },
+  { id: 'neural', Component: NeuralEngineSection },
+  { id: 'touch', Component: MultiTouchSection },
+  { id: 'display', Component: DisplayTechnologySection },
+  { id: 'photography', Component: ComputationalPhotographySection },
+  { id: 'battery', Component: BatteryThermalSection },
+  { id: 'software', Component: IOSSoftwareSection },
+  { id: 'security', Component: SecuritySection },
+  { id: 'networking', Component: NetworkingSection },
+  { id: 'future', Component: FutureSection },
+];
+
 function SectionSkeleton() {
   return (
-    <div className="flex items-center justify-center h-64 text-muted-foreground text-sm animate-pulse">
+    <div className="flex items-center justify-center h-64 text-muted-foreground text-sm animate-pulse" aria-hidden="true">
       Loading…
     </div>
   );
@@ -44,37 +59,50 @@ function SectionSkeleton() {
 export default function Home() {
   const [activeChapter, setActiveChapter] = useState('hero');
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [showScrollHint, setShowScrollHint] = useState(true);
 
+  // Track the active chapter with an IntersectionObserver instead of
+  // reading 12 bounding rects on every scroll event.
   useEffect(() => {
-    const handleScroll = () => {
-      const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const scrolled = (window.scrollY / windowHeight) * 100;
-      setScrollProgress(scrolled);
-
-      // Update active chapter based on scroll position
-      const sections = chapters.map(ch => ({
-        id: ch.id,
-        element: document.getElementById(ch.id),
-      }));
-
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const el = sections[i].element;
-        if (el && el.getBoundingClientRect().top < 200) {
-          setActiveChapter(sections[i].id);
-          break;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setActiveChapter(entry.target.id);
+          }
         }
-      }
-    };
+      },
+      { rootMargin: '-20% 0px -75% 0px' }
+    );
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    for (const ch of chapters) {
+      const el = document.getElementById(ch.id);
+      if (el) observer.observe(el);
+    }
+    return () => observer.disconnect();
+  }, []);
+
+  // Progress bar + scroll hint, rAF-throttled and passive.
+  useEffect(() => {
+    let raf = 0;
+    const handleScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const max = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        setScrollProgress(max > 0 ? (window.scrollY / max) * 100 : 0);
+        setShowScrollHint(window.scrollY < window.innerHeight * 0.6);
+      });
+    };
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+    scrollToId(id);
   };
 
   return (
@@ -87,81 +115,26 @@ export default function Home() {
           <HeroSection />
         </section>
 
-        <section id="architecture" className="min-h-screen py-20">
-          <Suspense fallback={<SectionSkeleton />}>
-            <SystemArchitectureSection />
-          </Suspense>
-        </section>
-
-        <section id="silicon" className="min-h-screen py-20">
-          <Suspense fallback={<SectionSkeleton />}>
-            <AppleSiliconSection />
-          </Suspense>
-        </section>
-
-        <section id="neural" className="min-h-screen py-20">
-          <Suspense fallback={<SectionSkeleton />}>
-            <NeuralEngineSection />
-          </Suspense>
-        </section>
-
-        <section id="touch" className="min-h-screen py-20">
-          <Suspense fallback={<SectionSkeleton />}>
-            <MultiTouchSection />
-          </Suspense>
-        </section>
-
-        <section id="display" className="min-h-screen py-20">
-          <Suspense fallback={<SectionSkeleton />}>
-            <DisplayTechnologySection />
-          </Suspense>
-        </section>
-
-        <section id="photography" className="min-h-screen py-20">
-          <Suspense fallback={<SectionSkeleton />}>
-            <ComputationalPhotographySection />
-          </Suspense>
-        </section>
-
-        <section id="battery" className="min-h-screen py-20">
-          <Suspense fallback={<SectionSkeleton />}>
-            <BatteryThermalSection />
-          </Suspense>
-        </section>
-
-        <section id="software" className="min-h-screen py-20">
-          <Suspense fallback={<SectionSkeleton />}>
-            <IOSSoftwareSection />
-          </Suspense>
-        </section>
-
-        <section id="security" className="min-h-screen py-20">
-          <Suspense fallback={<SectionSkeleton />}>
-            <SecuritySection />
-          </Suspense>
-        </section>
-
-        <section id="networking" className="min-h-screen py-20">
-          <Suspense fallback={<SectionSkeleton />}>
-            <NetworkingSection />
-          </Suspense>
-        </section>
-
-        <section id="future" className="min-h-screen py-20">
-          <Suspense fallback={<SectionSkeleton />}>
-            <FutureSection />
-          </Suspense>
-        </section>
+        {sections.map(({ id, Component }) => (
+          <section key={id} id={id} className="min-h-screen py-20">
+            <Suspense fallback={<SectionSkeleton />}>
+              <Component />
+            </Suspense>
+          </section>
+        ))}
       </main>
 
       <Footer />
 
-      {/* Scroll indicator at bottom */}
-      <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-40">
-        <div className="animate-bounce text-accent">
-          <ChevronDown size={32} />
+      {/* Scroll hint — only visible while the hero is on screen */}
+      {showScrollHint && (
+        <div
+          className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-40 pointer-events-none"
+          aria-hidden="true"
+        >
+          <ChevronDown className="animate-bounce text-accent" size={32} />
         </div>
-      </div>
+      )}
 
       <BackToTop />
     </div>

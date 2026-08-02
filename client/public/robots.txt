@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://iphone-engineering-marvel.example.com/sitemap.xml

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0b0d14"/>
+      <stop offset="55%" stop-color="#101527"/>
+      <stop offset="100%" stop-color="#1a1033"/>
+    </linearGradient>
+    <linearGradient id="ring" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#22d3ee"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="440" y="85" width="320" height="620" rx="48" fill="#05060b" stroke="url(#ring)" stroke-width="3"/>
+  <rect x="452" y="97" width="296" height="596" rx="40" fill="none" stroke="#1e293b" stroke-width="1.5"/>
+  <circle cx="600" cy="150" r="5" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
+  <circle cx="600" cy="610" r="42" fill="#05060b" stroke="#334155" stroke-width="2"/>
+  <text x="600" y="720" font-family="Sora, system-ui, sans-serif" font-size="64" font-weight="700" fill="#e2e8f0" text-anchor="middle" letter-spacing="-1">iPhone Engineering</text>
+  <text x="600" y="790" font-family="Inter, system-ui, sans-serif" font-size="30" fill="#64748b" text-anchor="middle">An interactive deep dive into the world's most advanced smartphone</text>
+</svg>

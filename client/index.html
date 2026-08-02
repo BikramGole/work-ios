@@ -5,8 +5,57 @@
     <meta charset="UTF-8" />
     <meta
       name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-    <title>iPhone: The Engineering Marvel</title>    
+      content="width=device-width, initial-scale=1.0" />
+    <title>iPhone: The Engineering Marvel — An Interactive Deep Dive</title>
+    <meta
+      name="description"
+      content="An interactive journey through the hardware and software engineering behind the iPhone: Apple Silicon, Neural Engine, display technology, computational photography, security and more — with 3D models and hands-on labs." />
+    <meta name="author" content="iPhone Engineering" />
+    <meta
+      name="keywords"
+      content="iPhone engineering, Apple Silicon, Neural Engine, computational photography, OLED, iOS architecture, interactive learning" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#0a0a0f" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="iPhone Engineering Marvel" />
+    <meta property="og:title" content="iPhone: The Engineering Marvel — An Interactive Deep Dive" />
+    <meta
+      property="og:description"
+      content="An interactive journey through the hardware and software engineering behind the iPhone: chips, cameras, displays, security and more." />
+    <meta property="og:url" content="https://iphone-engineering-marvel.example.com/" />
+    <meta property="og:image" content="/og-cover.svg" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="iPhone: The Engineering Marvel — An Interactive Deep Dive" />
+    <meta
+      name="twitter:description"
+      content="An interactive journey through the hardware and software engineering behind the iPhone." />
+    <meta name="twitter:image" content="/og-cover.svg" />
+
+    <link rel="canonical" href="https://iphone-engineering-marvel.example.com/" />
+
+    <!-- Set the theme class before first paint to avoid a flash of the wrong theme -->
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem("theme");
+          var dark = stored
+            ? stored === "dark"
+            : window.matchMedia &&
+              window.matchMedia("(prefers-color-scheme: dark)").matches;
+          var root = document.documentElement;
+          root.classList.toggle("dark", dark);
+          root.style.colorScheme = dark ? "dark" : "light";
+        } catch (e) {
+          /* ignore — default theme styles apply */
+        }
+      })();
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -14,10 +63,27 @@
       rel="icon"
       href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233b82f6' stroke-width='1.5'%3E%3Crect x='3' y='3' width='18' height='18' rx='5'/%3E%3Crect x='7.5' y='7.5' width='9' height='9' rx='2.5'/%3E%3Cpath d='M12 3v4.5M12 16.5V21M3 12h4.5M16.5 12H21' stroke-linecap='round'/%3E%3Ccircle cx='12' cy='12' r='1.5' fill='%233b82f6' stroke='none'/%3E%3C/svg%3E"
     />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "iPhone: The Engineering Marvel",
+        "url": "https://iphone-engineering-marvel.example.com/",
+        "description": "An interactive educational journey through the hardware and software engineering behind the iPhone.",
+        "inLanguage": "en"
+      }
+    </script>
   </head>
 
   <body>
     <div id="root"></div>
+    <noscript>
+      <div style="font-family: system-ui, sans-serif; padding: 2rem; text-align: center;">
+        <h1 style="font-size: 1.5rem; margin-bottom: 0.5rem;">iPhone: The Engineering Marvel</h1>
+        <p>This interactive experience requires JavaScript. Please enable it to explore the chapters.</p>
+      </div>
+    </noscript>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 

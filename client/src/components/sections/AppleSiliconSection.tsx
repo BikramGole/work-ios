@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { GlowCard, SectionHeader } from '@/components/SectionHeader';
+import { GlowCard, SectionHeader, sectionContainerVariants, sectionItemVariants } from '@/components/SectionHeader';
 import { useState } from 'react';
 import ChipDiagram from '@/components/visuals/ChipDiagram';
 
@@ -14,24 +14,10 @@ export default function AppleSiliconSection() {
     { id: 'memory', name: 'Memory Controller', spec: 'Unified', desc: 'High-bandwidth memory pool' },
     { id: 'secure', name: 'Secure Enclave', spec: 'Isolated', desc: 'Security and biometrics' },
   ];
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.1 },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 16 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-  };
-
-  return (
+return (
     <div className="container mx-auto px-4 py-24">
       <motion.div
-        variants={containerVariants}
+        variants={sectionContainerVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-100px' }}
@@ -44,7 +30,7 @@ export default function AppleSiliconSection() {
         />
 
         {/* Key Specs */}
-        <motion.div variants={itemVariants} className="grid md:grid-cols-3 gap-6">
+        <motion.div variants={sectionItemVariants} className="grid md:grid-cols-3 gap-6">
           <GlowCard>
             <div className="text-3xl font-bold text-primary mb-2">3nm</div>
             <p className="text-sm text-muted-foreground">Process Technology</p>
@@ -60,12 +46,12 @@ export default function AppleSiliconSection() {
         </motion.div>
 
         {/* Chip Visualization */}
-        <motion.div variants={itemVariants}>
+        <motion.div variants={sectionItemVariants}>
           <ChipDiagram />
         </motion.div>
 
         {/* Component Details */}
-        <motion.div variants={itemVariants}>
+        <motion.div variants={sectionItemVariants}>
           <h3 className="text-2xl font-bold mb-8">Core Components</h3>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {components.map((comp) => (
@@ -93,7 +79,7 @@ export default function AppleSiliconSection() {
         </motion.div>
 
         {/* Unified Memory */}
-        <motion.div variants={itemVariants} className="bg-card border border-border rounded p-8">
+        <motion.div variants={sectionItemVariants} className="bg-card border border-border rounded p-8">
           <h3 className="text-xl font-bold mb-4">Unified Memory Architecture</h3>
           <p className="text-muted-foreground leading-relaxed">
             The A18 Pro features a unified memory architecture, allowing the CPU and GPU to share a high-bandwidth, low-latency memory pool. This eliminates data copying between processors, resulting in unprecedented mobile performance and efficiency.

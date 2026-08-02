@@ -1,28 +1,9 @@
 import { motion } from 'framer-motion';
 import { Cpu, Zap, Link2 } from 'lucide-react';
-import { GlowCard, SectionHeader } from '@/components/SectionHeader';
+import { GlowCard, SectionHeader, sectionContainerVariants, sectionItemVariants } from '@/components/SectionHeader';
 
 export default function SystemArchitectureSection() {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 16 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6 },
-    },
-  };
-
-  const features = [
+const features = [
     {
       icon: Cpu,
       title: 'Unified Silicon Design',
@@ -43,7 +24,7 @@ export default function SystemArchitectureSection() {
   return (
     <div className="container mx-auto px-4 py-24">
       <motion.div
-        variants={containerVariants}
+        variants={sectionContainerVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-100px' }}
@@ -60,7 +41,7 @@ export default function SystemArchitectureSection() {
           {features.map((feature, idx) => {
             const Icon = feature.icon;
             return (
-              <motion.div key={idx} variants={itemVariants}>
+              <motion.div key={idx} variants={sectionItemVariants}>
                 <GlowCard>
                   <Icon className="w-8 h-8 text-primary mb-4" strokeWidth={1.5} />
                   <h3 className="text-lg font-semibold mb-3">{feature.title}</h3>
@@ -72,7 +53,7 @@ export default function SystemArchitectureSection() {
         </div>
 
         {/* Architecture Diagram */}
-        <motion.div variants={itemVariants} className="mt-16">
+        <motion.div variants={sectionItemVariants} className="mt-16">
           <div className="bg-card border border-border rounded p-12">
             <h3 className="text-2xl font-bold mb-12 text-center">Vertical Integration Stack</h3>
             <div className="space-y-3 max-w-md mx-auto">

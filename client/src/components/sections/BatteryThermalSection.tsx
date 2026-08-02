@@ -1,23 +1,13 @@
 import { motion } from 'framer-motion';
-import { GlowCard, SectionHeader } from '@/components/SectionHeader';
+import { GlowCard, SectionHeader, sectionContainerVariants, sectionItemVariants } from '@/components/SectionHeader';
 import { Zap, Thermometer } from 'lucide-react';
 import AnimatedCounter from '@/components/AnimatedCounter';
 
 export default function BatteryThermalSection() {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.15 } },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 16 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-  };
-
-  return (
+return (
     <div className="container mx-auto px-4 py-24">
       <motion.div
-        variants={containerVariants}
+        variants={sectionContainerVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-100px' }}
@@ -30,7 +20,7 @@ export default function BatteryThermalSection() {
         />
 
         {/* Key Components */}
-        <motion.div variants={itemVariants}>
+        <motion.div variants={sectionItemVariants}>
           <h3 className="text-2xl font-bold mb-8">Core Technologies</h3>
           <div className="grid md:grid-cols-3 gap-6">
             {[
@@ -53,7 +43,7 @@ export default function BatteryThermalSection() {
         </motion.div>
 
         {/* Battery Performance */}
-        <motion.div variants={itemVariants} className="bg-card border border-border rounded p-8">
+        <motion.div variants={sectionItemVariants} className="bg-card border border-border rounded p-8">
           <h3 className="text-xl font-bold mb-8">Battery Performance</h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
             <AnimatedCounter end={1000} suffix="+" label="Cycle Life" />
@@ -112,7 +102,7 @@ export default function BatteryThermalSection() {
         </motion.div>
 
         {/* Power Distribution */}
-        <motion.div variants={itemVariants} className="bg-card border border-border rounded p-8">
+        <motion.div variants={sectionItemVariants} className="bg-card border border-border rounded p-8">
           <h3 className="text-xl font-bold mb-6">Intelligent Power Distribution</h3>
           <div className="space-y-4">
             {[

@@ -7,37 +7,38 @@ interface SectionHeaderProps {
   description?: ReactNode;
 }
 
-const containerVariants = {
+/** Shared viewport-once animation variants used across all sections */
+export const sectionContainerVariants = {
   hidden: { opacity: 0 },
   visible: { opacity: 1, transition: { staggerChildren: 0.15 } },
-};
+} as const;
 
-const itemVariants = {
+export const sectionItemVariants = {
   hidden: { opacity: 0, y: 16 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-};
+} as const;
 
 export function SectionHeader({ badge, title, description }: SectionHeaderProps) {
   return (
     <motion.div
-      variants={containerVariants}
+      variants={sectionContainerVariants}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: '-100px' }}
       className="text-center space-y-4 max-w-2xl mx-auto"
     >
       <motion.span
-        variants={itemVariants}
+        variants={sectionItemVariants}
         className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/30 bg-primary/5 text-xs font-semibold text-primary tracking-wider"
       >
         <span className="w-1 h-1 rounded-full bg-primary" />
         {badge}
       </motion.span>
-      <motion.h2 variants={itemVariants} className="text-4xl md:text-5xl font-bold">
+      <motion.h2 variants={sectionItemVariants} className="text-4xl md:text-5xl font-bold">
         {title}
       </motion.h2>
       {description && (
-        <motion.p variants={itemVariants} className="text-lg text-muted-foreground">
+        <motion.p variants={sectionItemVariants} className="text-lg text-muted-foreground">
           {description}
         </motion.p>
       )}

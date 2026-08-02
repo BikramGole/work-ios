@@ -203,7 +203,21 @@ function vitePluginStorageProxy(): Plugin {
   };
 }
 
-const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(), vitePluginManusDebugCollector(), vitePluginStorageProxy()];
+// Dev-only instrumentation (browser log collection, storage proxy, JSX loc).
+// Gated to the dev server so the ~360KB runtime never ships to production.
+const devOnly = <T extends Plugin>(plugin: T): T => ({
+  ...plugin,
+  apply: "serve",
+});
+
+const plugins = [
+  react(),
+  tailwindcss(),
+  devOnly(jsxLocPlugin()),
+  devOnly(vitePluginManusRuntime()),
+  devOnly(vitePluginManusDebugCollector()),
+  devOnly(vitePluginStorageProxy()),
+];
 
 export default defineConfig({
   plugins,

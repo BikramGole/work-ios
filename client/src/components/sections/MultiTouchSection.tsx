@@ -1,31 +1,41 @@
 import { motion } from 'framer-motion';
-import { GlowCard, SectionHeader } from '@/components/SectionHeader';
-import { useState } from 'react';
+import { GlowCard, SectionHeader, sectionContainerVariants, sectionItemVariants } from '@/components/SectionHeader';
+import { useState, useRef } from 'react';
 import { Zap, Hand } from 'lucide-react';
 import AnimatedCounter from '@/components/AnimatedCounter';
 
 export default function MultiTouchSection() {
   const [touchPoint, setTouchPoint] = useState<{ x: number; y: number } | null>(null);
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.15 } },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 16 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+  const rafRef = useRef(0);
+// rAF-throttled so mousemove never re-renders more than once per frame
+  const updateTouchPoint = (clientX: number, clientY: number, currentTarget: HTMLDivElement) => {
+    cancelAnimationFrame(rafRef.current);
+    rafRef.current = requestAnimationFrame(() => {
+      const rect = currentTarget.getBoundingClientRect();
+      setTouchPoint({ x: clientX - rect.left, y: clientY - rect.top });
+    });
   };
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    setTouchPoint({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+    updateTouchPoint(e.clientX, e.clientY, e.currentTarget);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    const touch = e.touches[0];
+    if (touch) {
+      updateTouchPoint(touch.clientX, touch.clientY, e.currentTarget);
+    }
+  };
+
+  const clearTouchPoint = () => {
+    cancelAnimationFrame(rafRef.current);
+    setTouchPoint(null);
   };
 
   return (
     <div className="container mx-auto px-4 py-24">
       <motion.div
-        variants={containerVariants}
+        variants={sectionContainerVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-100px' }}
@@ -38,14 +48,18 @@ export default function MultiTouchSection() {
         />
 
         {/* Interactive Touch Simulation */}
-        <motion.div variants={itemVariants}>
+        <motion.div variants={sectionItemVariants}>
           <div
             onMouseMove={handleMouseMove}
-            onMouseLeave={() => setTouchPoint(null)}
-            className="relative bg-card border border-border rounded p-12 h-80 cursor-crosshair overflow-hidden"
+            onMouseLeave={clearTouchPoint}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={clearTouchPoint}
+            className="relative bg-card border border-border rounded p-12 h-80 cursor-crosshair overflow-hidden touch-none"
+            role="application"
+            aria-label="Interactive touch sensing simulator. Move your pointer or finger across the surface."
           >
             {/* Grid background */}
-            <svg className="absolute inset-0 w-full h-full opacity-10">
+            <svg className="absolute inset-0 w-full h-full opacity-10" aria-hidden="true">
               <defs>
                 <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
                   <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" strokeWidth="0.5" />
@@ -61,20 +75,29 @@ export default function MultiTouchSection() {
                 animate={{ scale: 1 }}
                 className="absolute pointer-events-none"
                 style={{ left: touchPoint.x, top: touchPoint.y, transform: 'translate(-50%, -50%)' }}
+                aria-hidden="true"
               >
-                
-                
+                {/* Capacitance readout ring */}
+                <div className="w-16 h-16 rounded-full border-2 border-primary/60 bg-primary/10 flex items-center justify-center">
+                  <motion.div
+                    animate={{ scale: [1, 1.25, 1], opacity: [0.5, 0.15, 0.5] }}
+                    transition={{ duration: 1.2, repeat: Infinity, ease: 'easeInOut' }}
+                    className="w-full h-full rounded-full border border-accent/50"
+                  />
+                </div>
+                {/* Finger contact point */}
+                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-accent shadow-[0_0_12px_2px_var(--color-accent)]" />
               </motion.div>
             )}
 
-            <div className="relative z-10 h-full flex items-center justify-center text-center">
-              <p className="text-muted-foreground">Move your mouse to simulate touch sensing</p>
+            <div className="relative z-10 h-full flex items-center justify-center text-center pointer-events-none">
+              <p className="text-muted-foreground">Move your mouse — or touch the screen — to simulate touch sensing</p>
             </div>
           </div>
         </motion.div>
 
-        {/* Technologies */}
-        <motion.div variants={itemVariants}>
+        {/* Sensing technologies */}
+        <motion.div variants={sectionItemVariants}>
           <h3 className="text-2xl font-bold mb-8">Sensing Technologies</h3>
           <div className="grid md:grid-cols-3 gap-6">
             {[
@@ -94,7 +117,7 @@ export default function MultiTouchSection() {
         </motion.div>
 
         {/* Performance stats */}
-        <motion.div variants={itemVariants} className="bg-card border border-border rounded p-8">
+        <motion.div variants={sectionItemVariants} className="bg-card border border-border rounded p-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             <AnimatedCounter end={120} suffix="Hz" label="Touch Sampling" />
             <AnimatedCounter end={0.1} suffix="ms" label="Response Latency" decimals={1} />
@@ -104,7 +127,7 @@ export default function MultiTouchSection() {
         </motion.div>
 
         {/* Gesture Recognition */}
-        <motion.div variants={itemVariants} className="bg-card border border-border rounded p-8">
+        <motion.div variants={sectionItemVariants} className="bg-card border border-border rounded p-8">
           <h3 className="text-xl font-bold mb-6">Gesture Recognition</h3>
           <div className="grid md:grid-cols-2 gap-8">
             <div>
