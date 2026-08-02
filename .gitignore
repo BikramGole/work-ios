@@ -1,0 +1,6 @@
+node_modules/
+dist/
+.manus-logs/
+.opencode/
+*.log
+.DS_Store
