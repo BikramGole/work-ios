@@ -14,6 +14,7 @@ import NetworkingSection from '@/components/sections/NetworkingSection';
 import FutureSection from '@/components/sections/FutureSection';
 import Navigation from '@/components/Navigation';
 import ProgressIndicator from '@/components/ProgressIndicator';
+import BackToTop from '@/components/BackToTop';
 
 const chapters = [
   { id: 'hero', title: 'Understanding iOS Engineering', label: 'Intro' },
@@ -127,6 +128,8 @@ export default function Home() {
           <ChevronDown size={32} />
         </div>
       </div>
+
+      <BackToTop />
     </div>
   );
 }

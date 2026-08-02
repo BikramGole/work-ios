@@ -1,6 +1,6 @@
-import { useLayoutEffect, useMemo, useRef, useState, Suspense, lazy, useCallback } from 'react';
+import { useLayoutEffect, useMemo, useRef, useState, Suspense, lazy, useCallback, Component, type ReactNode } from 'react';
 import { motion } from 'framer-motion';
-import { RotateCcw, Cpu, Camera, Maximize2, Loader2 } from 'lucide-react';
+import { RotateCcw, Cpu, Camera, Maximize2, Loader2, AlertTriangle } from 'lucide-react';
 import { useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
 
@@ -18,6 +18,9 @@ const Environment = lazy(() =>
 );
 const Lightformer = lazy(() =>
   import('@react-three/drei').then((m) => ({ default: m.Lightformer }))
+);
+const ModelLoader = lazy(() =>
+  import('@/components/visuals/ModelLoader').then((m) => ({ default: m.ModelLoader }))
 );
 
 export interface HotspotDef {
@@ -78,6 +81,33 @@ function HotspotIcon({ icon }: { icon: HotspotDef['icon'] }) {
       return <Cpu size={18} className="text-primary" />;
     default:
       return <Cpu size={18} className="text-primary" />;
+  }
+}
+
+class SceneErrorBoundary extends Component<{ children: ReactNode }, { hasError: boolean }> {
+  constructor(props: { children: ReactNode }) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="flex flex-col items-center gap-3 text-center px-6">
+            <AlertTriangle size={32} className="text-amber-500" />
+            <p className="text-sm text-muted-foreground">
+              3D view unavailable in this browser.
+            </p>
+          </div>
+        </div>
+      );
+    }
+    return this.props.children;
   }
 }
 
@@ -360,31 +390,34 @@ export default function HeroSection() {
           transition={{ duration: 1, delay: 0.3 }}
           className="relative h-[420px] md:h-[560px] lg:h-[620px] rounded-2xl overflow-hidden border border-border/60 bg-gradient-to-b from-card/40 to-transparent"
         >
-          <Suspense
-            fallback={
-              <div className="absolute inset-0 flex items-center justify-center text-muted-foreground">
-                <div className="flex flex-col items-center gap-3">
-                  <Loader2 className="animate-spin text-primary" size={32} />
-                  <p className="text-sm">Loading 3D model…</p>
+          <SceneErrorBoundary>
+            <Suspense
+              fallback={
+                <div className="absolute inset-0 flex items-center justify-center text-muted-foreground">
+                  <div className="flex flex-col items-center gap-3">
+                    <Loader2 className="animate-spin text-primary" size={32} />
+                    <p className="text-sm">Loading 3D model…</p>
+                  </div>
                 </div>
-              </div>
-            }
-          >
-            <Canvas
-              shadows
-              dpr={[1, 2]}
-              camera={{ position: [0, 0.4, 3.2], fov: 35 }}
-              gl={{ antialias: true, alpha: true, preserveDrawingBuffer: true }}
+              }
             >
-              <Scene
-                activeHotspot={activeHotspot}
-                onSelect={selectHotspot}
-                autoRotate={autoRotate}
-                onPositionsReady={handlePositionsReady}
-                hotspotPositions={hotspotPositions}
-              />
-            </Canvas>
-          </Suspense>
+              <Canvas
+                shadows
+                dpr={[1, 2]}
+                camera={{ position: [0, 0.4, 3.2], fov: 35 }}
+                gl={{ antialias: true, alpha: true, preserveDrawingBuffer: true }}
+              >
+                <Scene
+                  activeHotspot={activeHotspot}
+                  onSelect={selectHotspot}
+                  autoRotate={autoRotate}
+                  onPositionsReady={handlePositionsReady}
+                  hotspotPositions={hotspotPositions}
+                />
+              </Canvas>
+              <ModelLoader />
+            </Suspense>
+          </SceneErrorBoundary>
 
           {/* Hint overlay */}
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 px-3 py-1.5 rounded-full bg-background/60 backdrop-blur-md border border-border/60 text-[11px] text-muted-foreground">
