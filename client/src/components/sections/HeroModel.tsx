@@ -1,7 +1,7 @@
 import { useLayoutEffect, useCallback, useState, Suspense, lazy, useRef } from 'react';
 import { motion, useInView, useReducedMotion } from 'framer-motion';
 import { Loader2, RotateCcw } from 'lucide-react';
-import { useGLTF } from '@react-three/drei';
+import { useGLTF } from '@react-three/drei/core/Gltf';
 import { Vector3, DoubleSide, PCFShadowMap } from 'three';
 import type { Mesh as ThreeMesh } from 'three';
 import { HOTSPOTS } from './hotspotData';
@@ -12,13 +12,19 @@ const Canvas = lazy(() =>
   import('@react-three/fiber').then((m) => ({ default: m.Canvas }))
 );
 const OrbitControls = lazy(() =>
-  import('@react-three/drei').then((m) => ({ default: m.OrbitControls }))
+  import('@react-three/drei/core/OrbitControls').then((m) => ({
+    default: m.OrbitControls,
+  }))
 );
 const Environment = lazy(() =>
-  import('@react-three/drei').then((m) => ({ default: m.Environment }))
+  import('@react-three/drei/core/Environment').then((m) => ({
+    default: m.Environment,
+  }))
 );
 const Lightformer = lazy(() =>
-  import('@react-three/drei').then((m) => ({ default: m.Lightformer }))
+  import('@react-three/drei/core/Lightformer').then((m) => ({
+    default: m.Lightformer,
+  }))
 );
 
 function SceneModel({

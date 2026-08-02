@@ -233,6 +233,31 @@ export default defineConfig({
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (
+            id.includes("node_modules/three") ||
+            id.includes("node_modules/@react-three") ||
+            id.includes("node_modules/troika") ||
+            id.includes("node_modules/stats-gl") ||
+            id.includes("node_modules/maath") ||
+            id.includes("node_modules/three-stdlib")
+          ) {
+            return "three-vendor";
+          }
+          if (id.includes("node_modules/use-sync-external-store")) {
+            return "sync-store";
+          }
+          if (id.includes("node_modules/framer-motion") || id.includes("node_modules/motion-dom")) {
+            return "motion-vendor";
+          }
+          if (id.includes("node_modules/react") || id.includes("node_modules/scheduler")) {
+            return "react-vendor";
+          }
+        },
+      },
+    },
   },
   server: {
     port: 3000,
