@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { Zap, Eye } from 'lucide-react';
+import OledVisual from '@/components/visuals/OledVisual';
 
 export default function DisplayTechnologySection() {
   const [refreshRate, setRefreshRate] = useState(60);
@@ -39,12 +40,8 @@ export default function DisplayTechnologySection() {
         </motion.div>
 
         {/* Display Visualization */}
-        <motion.div variants={itemVariants} className="bg-card border border-border rounded p-8">
-          <img
-            src="/manus-storage/display-technology_7493baab.png"
-            alt="Display Technology"
-            className="w-full rounded"
-          />
+        <motion.div variants={itemVariants}>
+          <OledVisual refreshRate={refreshRate} />
         </motion.div>
 
         {/* Key Specifications */}

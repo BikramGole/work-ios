@@ -16,7 +16,12 @@ export default function Navigation({ activeChapter, chapters, onChapterClick }: 
       <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-sm border-b border-border">
         <div className="container flex items-center justify-between h-14">
           <div className="flex items-center gap-2">
-            <img src="/manus-storage/iphone-logo-mark_f31e7db7.png" alt="Logo" className="w-6 h-6" />
+            <svg viewBox="0 0 24 24" className="w-6 h-6 text-primary" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+              <rect x="3" y="3" width="18" height="18" rx="5" />
+              <rect x="7.5" y="7.5" width="9" height="9" rx="2.5" />
+              <path d="M12 3v4.5M12 16.5V21M3 12h4.5M16.5 12H21" strokeLinecap="round" />
+              <circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none" />
+            </svg>
             <span className="text-sm font-semibold text-foreground">iPhone Engineering</span>
           </div>
 

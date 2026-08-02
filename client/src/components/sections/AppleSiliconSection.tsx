@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import ChipDiagram from '@/components/visuals/ChipDiagram';
 
 export default function AppleSiliconSection() {
   const [hoveredComponent, setHoveredComponent] = useState<string | null>(null);
@@ -59,12 +60,8 @@ export default function AppleSiliconSection() {
         </motion.div>
 
         {/* Chip Visualization */}
-        <motion.div variants={itemVariants} className="bg-card border border-border rounded p-8">
-          <img
-            src="/manus-storage/apple-silicon-architecture_11a21e90.png"
-            alt="Apple Silicon Architecture"
-            className="w-full rounded"
-          />
+        <motion.div variants={itemVariants}>
+          <ChipDiagram />
         </motion.div>
 
         {/* Component Details */}

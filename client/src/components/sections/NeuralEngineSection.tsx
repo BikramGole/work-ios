@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Brain, Zap, Mic, Languages } from 'lucide-react';
+import NeuralNetworkVisual from '@/components/visuals/NeuralNetworkVisual';
 
 export default function NeuralEngineSection() {
   const containerVariants = {
@@ -36,12 +37,8 @@ export default function NeuralEngineSection() {
         </motion.div>
 
         {/* Neural Network Visualization */}
-        <motion.div variants={itemVariants} className="bg-card border border-border rounded p-8">
-          <img
-            src="/manus-storage/neural-engine-visualization_694d95ef.png"
-            alt="Neural Engine"
-            className="w-full rounded"
-          />
+        <motion.div variants={itemVariants}>
+          <NeuralNetworkVisual />
         </motion.div>
 
         {/* Applications Grid */}
