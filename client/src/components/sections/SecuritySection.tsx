@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { SectionHeader } from '@/components/SectionHeader';
 import { Lock, Shield, Fingerprint, Key } from 'lucide-react';
 
 export default function SecuritySection() {
@@ -28,12 +29,11 @@ export default function SecuritySection() {
         viewport={{ once: true, margin: '-100px' }}
         className="space-y-16"
       >
-        <motion.div variants={itemVariants} className="text-center space-y-4 max-w-2xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold">Security Architecture</h2>
-          <p className="text-lg text-muted-foreground">
-            Security by design. Hardware-backed protection for user data and privacy.
-          </p>
-        </motion.div>
+        <SectionHeader
+          badge="Chapter 09"
+          title="Security Architecture"
+          description="Security by design. Hardware-backed protection for user data and privacy."
+        />
 
         {/* Security Features */}
         <motion.div variants={itemVariants}>

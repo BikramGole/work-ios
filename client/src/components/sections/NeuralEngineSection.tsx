@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { SectionHeader } from '@/components/SectionHeader';
 import { Brain, Zap, Mic, Languages } from 'lucide-react';
 import NeuralNetworkVisual from '@/components/visuals/NeuralNetworkVisual';
 
@@ -29,12 +30,11 @@ export default function NeuralEngineSection() {
         viewport={{ once: true, margin: '-100px' }}
         className="space-y-16"
       >
-        <motion.div variants={itemVariants} className="text-center space-y-4 max-w-2xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold">Neural Engine</h2>
-          <p className="text-lg text-muted-foreground">
-            35 TRILLIONS OF OPERATIONS PER SECOND powering on-device AI and machine learning.
-          </p>
-        </motion.div>
+        <SectionHeader
+          badge="Chapter 03"
+          title="Neural Engine"
+          description="35 TRILLIONS OF OPERATIONS PER SECOND powering on-device AI and machine learning."
+        />
 
         {/* Neural Network Visualization */}
         <motion.div variants={itemVariants}>

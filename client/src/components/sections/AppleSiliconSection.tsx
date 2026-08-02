@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { SectionHeader } from '@/components/SectionHeader';
 import { useState } from 'react';
 import ChipDiagram from '@/components/visuals/ChipDiagram';
 
@@ -36,12 +37,11 @@ export default function AppleSiliconSection() {
         viewport={{ once: true, margin: '-100px' }}
         className="space-y-16"
       >
-        <motion.div variants={itemVariants} className="text-center space-y-4 max-w-2xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold">Apple Silicon</h2>
-          <p className="text-lg text-muted-foreground">
-            The A18 Pro utilizes unified memory architecture for unprecedented mobile performance.
-          </p>
-        </motion.div>
+        <SectionHeader
+          badge="Chapter 02"
+          title="Apple Silicon"
+          description="The A18 Pro utilizes unified memory architecture for unprecedented mobile performance."
+        />
 
         {/* Key Specs */}
         <motion.div variants={itemVariants} className="grid md:grid-cols-3 gap-6">

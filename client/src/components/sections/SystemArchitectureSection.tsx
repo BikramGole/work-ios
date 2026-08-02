@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Cpu, Zap, Link2 } from 'lucide-react';
+import { SectionHeader } from '@/components/SectionHeader';
 
 export default function SystemArchitectureSection() {
   const containerVariants = {
@@ -48,12 +49,11 @@ export default function SystemArchitectureSection() {
         viewport={{ once: true, margin: '-100px' }}
         className="space-y-16"
       >
-        <motion.div variants={itemVariants} className="text-center space-y-4 max-w-2xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold">System Architecture</h2>
-          <p className="text-lg text-muted-foreground">
-            Vertical integration drives performance by seamlessly connecting hardware and software.
-          </p>
-        </motion.div>
+        <SectionHeader
+          badge="Chapter 01"
+          title="System Architecture"
+          description="Vertical integration drives performance by seamlessly connecting hardware and software."
+        />
 
         {/* Features Grid */}
         <div className="grid md:grid-cols-3 gap-8">

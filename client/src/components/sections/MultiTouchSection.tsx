@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { SectionHeader } from '@/components/SectionHeader';
 import { useState } from 'react';
 import { Zap, Hand } from 'lucide-react';
 import AnimatedCounter from '@/components/AnimatedCounter';
@@ -30,12 +31,11 @@ export default function MultiTouchSection() {
         viewport={{ once: true, margin: '-100px' }}
         className="space-y-16"
       >
-        <motion.div variants={itemVariants} className="text-center space-y-4 max-w-2xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold">Multi-Touch Display</h2>
-          <p className="text-lg text-muted-foreground">
-            Advanced capacitive sensing technology for precise interaction.
-          </p>
-        </motion.div>
+        <SectionHeader
+          badge="Chapter 04"
+          title="Multi-Touch Display"
+          description="Advanced capacitive sensing technology for precise interaction."
+        />
 
         {/* Interactive Touch Simulation */}
         <motion.div variants={itemVariants}>

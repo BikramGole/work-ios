@@ -11,15 +11,19 @@ async function startServer() {
   const server = createServer(app);
 
   // Serve static files from dist/public in production
-  const staticPath =
-    process.env.NODE_ENV === "production"
-      ? path.resolve(__dirname, "public")
-      : path.resolve(__dirname, "..", "dist", "public");
+  const bundledPublic = path.resolve(__dirname, "public");
+  const workspacePublic = path.resolve(__dirname, "..", "dist", "public");
+  const staticPath = process.env.NODE_ENV === "production"
+    ? bundledPublic
+    : (await import("node:fs")).existsSync(bundledPublic) ? bundledPublic : workspacePublic;
 
   app.use(express.static(staticPath));
 
   // Handle client-side routing - serve index.html for all routes
-  app.get("*", (_req, res) => {
+  app.get("*", (req, res, next) => {
+    if (req.path.includes(".")) {
+      return next();
+    }
     res.sendFile(path.join(staticPath, "index.html"));
   });
 

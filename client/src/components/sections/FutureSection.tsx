@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { SectionHeader } from '@/components/SectionHeader';
 import { Sparkles, Zap, Eye, RotateCcw } from 'lucide-react';
 import AnimatedCounter from '@/components/AnimatedCounter';
 
@@ -31,12 +32,11 @@ export default function FutureSection() {
         viewport={{ once: true, margin: '-100px' }}
         className="space-y-16"
       >
-        <motion.div variants={itemVariants} className="text-center space-y-4 max-w-2xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold">The Future of Mobile</h2>
-          <p className="text-lg text-muted-foreground">
-            Engineering a smarter world through continued innovation and integration.
-          </p>
-        </motion.div>
+        <SectionHeader
+          badge="Chapter 11"
+          title="The Future of Mobile"
+          description="Engineering a smarter world through continued innovation and integration."
+        />
 
         {/* Future Technologies */}
         <motion.div variants={itemVariants}>

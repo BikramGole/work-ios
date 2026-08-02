@@ -2,7 +2,7 @@ import { useLayoutEffect, useCallback, useState, Suspense, lazy } from 'react';
 import { motion } from 'framer-motion';
 import { Loader2, RotateCcw } from 'lucide-react';
 import { useGLTF } from '@react-three/drei';
-import { Vector3, DoubleSide } from 'three';
+import { Vector3, DoubleSide, PCFShadowMap } from 'three';
 import type { Mesh as ThreeMesh } from 'three';
 import { HOTSPOTS } from './hotspotData';
 
@@ -190,10 +190,10 @@ function ModelCanvas({
 
   return (
     <Canvas
-      shadows
+      shadows={{ type: PCFShadowMap }}
       dpr={[1, 2]}
       camera={{ position: [0, 0.4, 3.2], fov: 35 }}
-      gl={{ antialias: true, alpha: true, preserveDrawingBuffer: true }}
+      gl={{ antialias: true, alpha: true }}
     >
       <Scene
         activeHotspot={activeHotspot}

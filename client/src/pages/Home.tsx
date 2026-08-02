@@ -33,6 +33,14 @@ const chapters = [
   { id: 'future', title: 'Future Technologies', label: '11' },
 ];
 
+function SectionSkeleton() {
+  return (
+    <div className="flex items-center justify-center h-64 text-muted-foreground text-sm animate-pulse">
+      Loading…
+    </div>
+  );
+}
+
 export default function Home() {
   const [activeChapter, setActiveChapter] = useState('hero');
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -79,57 +87,71 @@ export default function Home() {
           <HeroSection />
         </section>
 
-        <Suspense
-          fallback={
-            <div className="flex items-center justify-center h-64 text-muted-foreground text-sm">
-              Loading…
-            </div>
-          }
-        >
-          <section id="architecture" className="min-h-screen py-20">
+        <section id="architecture" className="min-h-screen py-20">
+          <Suspense fallback={<SectionSkeleton />}>
             <SystemArchitectureSection />
-          </section>
+          </Suspense>
+        </section>
 
-          <section id="silicon" className="min-h-screen py-20">
+        <section id="silicon" className="min-h-screen py-20">
+          <Suspense fallback={<SectionSkeleton />}>
             <AppleSiliconSection />
-          </section>
+          </Suspense>
+        </section>
 
-          <section id="neural" className="min-h-screen py-20">
+        <section id="neural" className="min-h-screen py-20">
+          <Suspense fallback={<SectionSkeleton />}>
             <NeuralEngineSection />
-          </section>
+          </Suspense>
+        </section>
 
-          <section id="touch" className="min-h-screen py-20">
+        <section id="touch" className="min-h-screen py-20">
+          <Suspense fallback={<SectionSkeleton />}>
             <MultiTouchSection />
-          </section>
+          </Suspense>
+        </section>
 
-          <section id="display" className="min-h-screen py-20">
+        <section id="display" className="min-h-screen py-20">
+          <Suspense fallback={<SectionSkeleton />}>
             <DisplayTechnologySection />
-          </section>
+          </Suspense>
+        </section>
 
-          <section id="photography" className="min-h-screen py-20">
+        <section id="photography" className="min-h-screen py-20">
+          <Suspense fallback={<SectionSkeleton />}>
             <ComputationalPhotographySection />
-          </section>
+          </Suspense>
+        </section>
 
-          <section id="battery" className="min-h-screen py-20">
+        <section id="battery" className="min-h-screen py-20">
+          <Suspense fallback={<SectionSkeleton />}>
             <BatteryThermalSection />
-          </section>
+          </Suspense>
+        </section>
 
-          <section id="software" className="min-h-screen py-20">
+        <section id="software" className="min-h-screen py-20">
+          <Suspense fallback={<SectionSkeleton />}>
             <IOSSoftwareSection />
-          </section>
+          </Suspense>
+        </section>
 
-          <section id="security" className="min-h-screen py-20">
+        <section id="security" className="min-h-screen py-20">
+          <Suspense fallback={<SectionSkeleton />}>
             <SecuritySection />
-          </section>
+          </Suspense>
+        </section>
 
-          <section id="networking" className="min-h-screen py-20">
+        <section id="networking" className="min-h-screen py-20">
+          <Suspense fallback={<SectionSkeleton />}>
             <NetworkingSection />
-          </section>
+          </Suspense>
+        </section>
 
-          <section id="future" className="min-h-screen py-20">
+        <section id="future" className="min-h-screen py-20">
+          <Suspense fallback={<SectionSkeleton />}>
             <FutureSection />
-          </section>
-        </Suspense>
+          </Suspense>
+        </section>
       </main>
 
       <Footer />

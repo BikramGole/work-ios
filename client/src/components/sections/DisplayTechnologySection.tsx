@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { SectionHeader } from '@/components/SectionHeader';
 import { useState } from 'react';
 import { Zap, Eye } from 'lucide-react';
 import OledVisual from '@/components/visuals/OledVisual';
@@ -32,12 +33,11 @@ export default function DisplayTechnologySection() {
         viewport={{ once: true, margin: '-100px' }}
         className="space-y-16"
       >
-        <motion.div variants={itemVariants} className="text-center space-y-4 max-w-2xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold">Display Technology</h2>
-          <p className="text-lg text-muted-foreground">
-            Super Retina XDR: Precision at the pixel level with self-emissive OLED technology.
-          </p>
-        </motion.div>
+        <SectionHeader
+          badge="Chapter 05"
+          title="Display Technology"
+          description="Super Retina XDR: Precision at the pixel level with self-emissive OLED technology."
+        />
 
         {/* Display Visualization */}
         <motion.div variants={itemVariants}>

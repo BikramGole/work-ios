@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { SectionHeader } from '@/components/SectionHeader';
 import { Wifi, Radio, Zap } from 'lucide-react';
 
 export default function NetworkingSection() {
@@ -28,12 +29,11 @@ export default function NetworkingSection() {
         viewport={{ once: true, margin: '-100px' }}
         className="space-y-16"
       >
-        <motion.div variants={itemVariants} className="text-center space-y-4 max-w-2xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold">Networking & Connectivity</h2>
-          <p className="text-lg text-muted-foreground">
-            High-speed networking with intelligent antenna design and seamless device integration.
-          </p>
-        </motion.div>
+        <SectionHeader
+          badge="Chapter 10"
+          title="Networking & Connectivity"
+          description="High-speed networking with intelligent antenna design and seamless device integration."
+        />
 
         {/* Connectivity Technologies */}
         <motion.div variants={itemVariants}>

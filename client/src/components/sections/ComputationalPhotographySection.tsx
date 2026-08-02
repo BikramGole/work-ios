@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { SectionHeader } from '@/components/SectionHeader';
 import { Camera } from 'lucide-react';
 
 export default function ComputationalPhotographySection() {
@@ -30,12 +31,11 @@ export default function ComputationalPhotographySection() {
         viewport={{ once: true, margin: '-100px' }}
         className="space-y-16"
       >
-        <motion.div variants={itemVariants} className="text-center space-y-4 max-w-2xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold">Computational Photography</h2>
-          <p className="text-lg text-muted-foreground">
-            Zero shutter lag. Photonic Engine. Deep Fusion. Smart HDR 5.
-          </p>
-        </motion.div>
+        <SectionHeader
+          badge="Chapter 06"
+          title="Computational Photography"
+          description="Zero shutter lag. Photonic Engine. Deep Fusion. Smart HDR 5."
+        />
 
         {/* Photography Pipeline */}
         <motion.div variants={itemVariants}>

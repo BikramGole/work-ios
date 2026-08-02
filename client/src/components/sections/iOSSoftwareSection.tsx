@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { SectionHeader } from '@/components/SectionHeader';
 import { Layers, Lock, Zap, Cpu } from 'lucide-react';
 
 export default function IOSSoftwareSection() {
@@ -28,12 +29,11 @@ export default function IOSSoftwareSection() {
         viewport={{ once: true, margin: '-100px' }}
         className="space-y-16"
       >
-        <motion.div variants={itemVariants} className="text-center space-y-4 max-w-2xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold">iOS Software Architecture</h2>
-          <p className="text-lg text-muted-foreground">
-            A Unix-based foundation for stability, performance, and security.
-          </p>
-        </motion.div>
+        <SectionHeader
+          badge="Chapter 08"
+          title="iOS Software Architecture"
+          description="A Unix-based foundation for stability, performance, and security."
+        />
 
         {/* Layered Architecture */}
         <motion.div variants={itemVariants}>
