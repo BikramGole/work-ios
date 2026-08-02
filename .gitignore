@@ -4,3 +4,4 @@ dist/
 .opencode/
 *.log
 .DS_Store
+*.zip
