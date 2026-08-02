@@ -15,6 +15,7 @@ import FutureSection from '@/components/sections/FutureSection';
 import Navigation from '@/components/Navigation';
 import ProgressIndicator from '@/components/ProgressIndicator';
 import BackToTop from '@/components/BackToTop';
+import Footer from '@/components/Footer';
 
 const chapters = [
   { id: 'hero', title: 'Understanding iOS Engineering', label: 'Intro' },
@@ -121,6 +122,8 @@ export default function Home() {
           <FutureSection />
         </section>
       </main>
+
+      <Footer />
 
       {/* Scroll indicator at bottom */}
       <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-40">

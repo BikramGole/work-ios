@@ -371,7 +371,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="pt-4 flex items-center gap-4"
+            className="pt-4 flex items-center gap-4 flex-wrap"
           >
             <button
               onClick={() => setAutoRotate((r) => !r)}
@@ -379,6 +379,12 @@ export default function HeroSection() {
             >
               <RotateCcw size={16} />
               {autoRotate ? 'Pause Rotation' : 'Resume Rotation'}
+            </button>
+            <button
+              onClick={() => document.getElementById('architecture')?.scrollIntoView({ behavior: 'smooth' })}
+              className="px-8 py-3 border border-border text-foreground rounded font-semibold hover:border-primary/50 hover:text-primary transition-colors duration-200"
+            >
+              Explore the Chapters
             </button>
           </motion.div>
         </motion.div>
