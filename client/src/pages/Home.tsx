@@ -1,21 +1,22 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, lazy, Suspense } from 'react';
 import { ChevronDown } from 'lucide-react';
 import HeroSection from '@/components/sections/HeroSection';
-import SystemArchitectureSection from '@/components/sections/SystemArchitectureSection';
-import AppleSiliconSection from '@/components/sections/AppleSiliconSection';
-import NeuralEngineSection from '@/components/sections/NeuralEngineSection';
-import MultiTouchSection from '@/components/sections/MultiTouchSection';
-import DisplayTechnologySection from '@/components/sections/DisplayTechnologySection';
-import ComputationalPhotographySection from '@/components/sections/ComputationalPhotographySection';
-import BatteryThermalSection from '@/components/sections/BatteryThermalSection';
-import IOSSoftwareSection from '@/components/sections/iOSSoftwareSection';
-import SecuritySection from '@/components/sections/SecuritySection';
-import NetworkingSection from '@/components/sections/NetworkingSection';
-import FutureSection from '@/components/sections/FutureSection';
 import Navigation from '@/components/Navigation';
 import ProgressIndicator from '@/components/ProgressIndicator';
 import BackToTop from '@/components/BackToTop';
 import Footer from '@/components/Footer';
+
+const SystemArchitectureSection = lazy(() => import('@/components/sections/SystemArchitectureSection'));
+const AppleSiliconSection = lazy(() => import('@/components/sections/AppleSiliconSection'));
+const NeuralEngineSection = lazy(() => import('@/components/sections/NeuralEngineSection'));
+const MultiTouchSection = lazy(() => import('@/components/sections/MultiTouchSection'));
+const DisplayTechnologySection = lazy(() => import('@/components/sections/DisplayTechnologySection'));
+const ComputationalPhotographySection = lazy(() => import('@/components/sections/ComputationalPhotographySection'));
+const BatteryThermalSection = lazy(() => import('@/components/sections/BatteryThermalSection'));
+const IOSSoftwareSection = lazy(() => import('@/components/sections/iOSSoftwareSection'));
+const SecuritySection = lazy(() => import('@/components/sections/SecuritySection'));
+const NetworkingSection = lazy(() => import('@/components/sections/NetworkingSection'));
+const FutureSection = lazy(() => import('@/components/sections/FutureSection'));
 
 const chapters = [
   { id: 'hero', title: 'Understanding iOS Engineering', label: 'Intro' },
@@ -78,49 +79,57 @@ export default function Home() {
           <HeroSection />
         </section>
 
-        <section id="architecture" className="min-h-screen py-20">
-          <SystemArchitectureSection />
-        </section>
+        <Suspense
+          fallback={
+            <div className="flex items-center justify-center h-64 text-muted-foreground text-sm">
+              Loading…
+            </div>
+          }
+        >
+          <section id="architecture" className="min-h-screen py-20">
+            <SystemArchitectureSection />
+          </section>
 
-        <section id="silicon" className="min-h-screen py-20">
-          <AppleSiliconSection />
-        </section>
+          <section id="silicon" className="min-h-screen py-20">
+            <AppleSiliconSection />
+          </section>
 
-        <section id="neural" className="min-h-screen py-20">
-          <NeuralEngineSection />
-        </section>
+          <section id="neural" className="min-h-screen py-20">
+            <NeuralEngineSection />
+          </section>
 
-        <section id="touch" className="min-h-screen py-20">
-          <MultiTouchSection />
-        </section>
+          <section id="touch" className="min-h-screen py-20">
+            <MultiTouchSection />
+          </section>
 
-        <section id="display" className="min-h-screen py-20">
-          <DisplayTechnologySection />
-        </section>
+          <section id="display" className="min-h-screen py-20">
+            <DisplayTechnologySection />
+          </section>
 
-        <section id="photography" className="min-h-screen py-20">
-          <ComputationalPhotographySection />
-        </section>
+          <section id="photography" className="min-h-screen py-20">
+            <ComputationalPhotographySection />
+          </section>
 
-        <section id="battery" className="min-h-screen py-20">
-          <BatteryThermalSection />
-        </section>
+          <section id="battery" className="min-h-screen py-20">
+            <BatteryThermalSection />
+          </section>
 
-        <section id="software" className="min-h-screen py-20">
-          <IOSSoftwareSection />
-        </section>
+          <section id="software" className="min-h-screen py-20">
+            <IOSSoftwareSection />
+          </section>
 
-        <section id="security" className="min-h-screen py-20">
-          <SecuritySection />
-        </section>
+          <section id="security" className="min-h-screen py-20">
+            <SecuritySection />
+          </section>
 
-        <section id="networking" className="min-h-screen py-20">
-          <NetworkingSection />
-        </section>
+          <section id="networking" className="min-h-screen py-20">
+            <NetworkingSection />
+          </section>
 
-        <section id="future" className="min-h-screen py-20">
-          <FutureSection />
-        </section>
+          <section id="future" className="min-h-screen py-20">
+            <FutureSection />
+          </section>
+        </Suspense>
       </main>
 
       <Footer />
