@@ -3,6 +3,14 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Prevent any horizontal scroll (clipped glows/decor can otherwise
+   add a subpixel scrollbar on narrow viewports; clip keeps sticky
+   positioning intact unlike overflow:hidden). */
+html,
+body {
+  overflow-x: clip;
+}
+
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
