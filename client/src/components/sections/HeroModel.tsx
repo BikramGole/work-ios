@@ -2,8 +2,8 @@ import { useLayoutEffect, useCallback, useState, Suspense, lazy, useRef } from '
 import { motion, useInView, useReducedMotion } from 'framer-motion';
 import { Loader2, RotateCcw } from 'lucide-react';
 import { useGLTF } from '@react-three/drei/core/Gltf';
-import { Vector3, PCFShadowMap } from 'three';
-import type { Mesh as ThreeMesh } from 'three';
+import { Vector3, Box3, DoubleSide, PCFShadowMap } from 'three';
+import type { Mesh as ThreeMesh, MeshStandardMaterial as ThreeStandardMaterial } from 'three';
 import { HOTSPOTS } from './hotspotData';
 
 useGLTF.setDecoderPath('/draco/');
@@ -37,10 +37,28 @@ function SceneModel({
   onPositionsReady: (positions: Record<string, [number, number, number]>) => void;
 }) {
   const { scene } = useGLTF('/models/iphone17/iphone17.glb');
+  const [backdrop, setBackdrop] = useState<{ w: number; h: number; z: number } | null>(null);
 
   // Compute world-space hotspot positions once the model matrix is available.
   useLayoutEffect(() => {
     scene.updateMatrixWorld(true);
+
+    // The GLB is a single-sided shell: from behind, the back panel is
+    // backface-culled and reads as transparent. Render both faces.
+    scene.traverse((child) => {
+      const mesh = child as ThreeMesh;
+      if (!mesh.isMesh || !mesh.material) return;
+      const mat = (Array.isArray(mesh.material) ? mesh.material[0] : mesh.material) as ThreeStandardMaterial;
+      mat.side = DoubleSide;
+      mat.needsUpdate = true;
+    });
+
+    // Size a backdrop plane to the phone body so any open back reads as
+    // solid, without painting over the surrounding page gradient.
+    const box = new Box3().setFromObject(scene);
+    const size = box.getSize(new Vector3());
+    setBackdrop({ w: size.x, h: size.y, z: box.min.z - 0.02 });
+
     const positions: Record<string, [number, number, number]> = {};
     for (const hotspot of HOTSPOTS) {
       const centers: Vector3[] = [];
@@ -70,6 +88,12 @@ function SceneModel({
   return (
     <group rotation={[-Math.PI / 2, 0, 0]} scale={1.35}>
       <primitive object={scene} />
+      {backdrop && (
+        <mesh position={[0, 0, backdrop.z]} renderOrder={-1}>
+          <planeGeometry args={[backdrop.w, backdrop.h]} />
+          <meshStandardMaterial color="#10151f" side={DoubleSide} roughness={0.5} metalness={0.25} />
+        </mesh>
+      )}
     </group>
   );
 }
@@ -126,13 +150,6 @@ function Scene({
         onSelect={onSelect}
         onPositionsReady={onPositionsReady}
       />
-
-      {/* Studio backdrop — masks the page behind the open shell so the
-          model's back reads as a solid dark studio, not a see-through void */}
-      <mesh position={[0, 0, -3.5]}>
-        <planeGeometry args={[14, 14]} />
-        <meshBasicMaterial color="#05060b" />
-      </mesh>
 
       {/* Hotspot markers — world-space siblings so they track the model rotation */}
       {hasHotspots &&
