@@ -141,7 +141,7 @@ function Scene({
                   onSelect(h.id);
                 }}
               >
-                <sphereGeometry args={[0.1, 16, 16]} />
+                <sphereGeometry args={[0.3, 16, 16]} />
                 <meshBasicMaterial transparent opacity={0} depthWrite={false} />
               </mesh>
               <mesh position={[0, 0.18, 0]}>
