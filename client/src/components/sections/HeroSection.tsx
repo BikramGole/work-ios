@@ -1,6 +1,6 @@
 import { useState, lazy, Suspense, Component, type ReactNode } from 'react';
 import { motion } from 'framer-motion';
-import { RotateCcw, Cpu, Camera, Maximize2, AlertTriangle } from 'lucide-react';
+import { RotateCcw, Cpu, Camera, Maximize2, AlertTriangle, Loader2 } from 'lucide-react';
 import { HOTSPOTS, type HotspotDef } from './hotspotData';
 import { scrollToId } from '@/lib/scroll';
 
@@ -114,7 +114,8 @@ export default function HeroSection() {
               fallback={
                 <div className="absolute inset-0 flex items-center justify-center text-muted-foreground">
                   <div className="flex flex-col items-center gap-3">
-                    <span className="animate-pulse">Loading 3D model…</span>
+                    <Loader2 className="animate-spin" size={28} aria-hidden="true" />
+                    <span className="text-sm">Loading 3D model…</span>
                   </div>
                 </div>
               }
@@ -143,6 +144,7 @@ export default function HeroSection() {
               <button
                 key={h.id}
                 onClick={() => selectHotspot(h.id)}
+                aria-pressed={activeHotspot === h.id}
                 className={`px-4 py-2.5 min-h-10 rounded-full border text-sm font-medium transition-all duration-200 inline-flex items-center ${
                   activeHotspot === h.id
                     ? 'border-primary bg-primary/15 text-primary shadow-[0_0_20px_rgba(59,130,246,0.25)]'
@@ -155,7 +157,7 @@ export default function HeroSection() {
           </div>
 
           {/* Info panel */}
-          <div className="min-h-[120px]">
+          <div className="min-h-[120px]" aria-live="polite">
             {selected ? (
               <motion.div
                 key={selected.id}
