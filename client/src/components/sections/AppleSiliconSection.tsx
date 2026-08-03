@@ -54,27 +54,44 @@ return (
         <motion.div variants={sectionItemVariants}>
           <h3 className="text-2xl font-bold mb-8">Core Components</h3>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {components.map((comp) => (
-              <motion.div
-                key={comp.id}
-                onHoverStart={() => setHoveredComponent(comp.id)}
-                onHoverEnd={() => setHoveredComponent(null)}
-                whileHover={{ borderColor: 'var(--color-primary)' }}
-                className="p-6 bg-card border border-border rounded cursor-pointer transition-colors duration-200"
-              >
-                <div className="text-sm font-semibold text-primary mb-1">{comp.spec}</div>
-                <h4 className="text-lg font-semibold mb-2">{comp.name}</h4>
-                {hoveredComponent === comp.id && (
-                  <motion.p
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    className="text-sm text-muted-foreground"
-                  >
-                    {comp.desc}
-                  </motion.p>
-                )}
-              </motion.div>
-            ))}
+            {components.map((comp) => {
+              const open = hoveredComponent === comp.id;
+              return (
+                <motion.div
+                  key={comp.id}
+                  onHoverStart={() => setHoveredComponent(comp.id)}
+                  onHoverEnd={() => setHoveredComponent(null)}
+                  onClick={() =>
+                    setHoveredComponent((prev) => (prev === comp.id ? null : comp.id))
+                  }
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      setHoveredComponent((prev) => (prev === comp.id ? null : comp.id));
+                    }
+                  }}
+                  whileHover={{ borderColor: 'var(--color-primary)' }}
+                  role="button"
+                  tabIndex={0}
+                  aria-expanded={open}
+                  className={`p-6 bg-card border border-border rounded cursor-pointer transition-colors duration-200 ${
+                    open ? 'border-primary/40' : ''
+                  }`}
+                >
+                  <div className="text-sm font-semibold text-primary mb-1">{comp.spec}</div>
+                  <h4 className="text-lg font-semibold mb-2">{comp.name}</h4>
+                  {open && (
+                    <motion.p
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      className="text-sm text-muted-foreground"
+                    >
+                      {comp.desc}
+                    </motion.p>
+                  )}
+                </motion.div>
+              );
+            })}
           </div>
         </motion.div>
 
