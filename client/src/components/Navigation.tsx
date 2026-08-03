@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Menu, X, Moon, Sun } from 'lucide-react';
 import { useTheme } from '@/contexts/ThemeContext';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 
 interface NavigationProps {
   activeChapter: string;
@@ -84,37 +85,25 @@ export default function Navigation({ activeChapter, chapters, onChapterClick }: 
           </a>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex items-center gap-6">
-            {chapters.slice(0, 6).map((ch) => (
-              <button
-                key={ch.id}
-                onClick={() => onChapterClick(ch.id)}
-                aria-current={activeChapter === ch.id ? 'true' : undefined}
-                aria-label={`Chapter ${ch.label}: ${ch.title}`}
-                className={`py-1.5 px-1.5 text-xs font-medium transition-colors duration-200 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
-                  activeChapter === ch.id
-                    ? 'text-primary'
-                    : 'text-muted-foreground hover:text-foreground'
-                }`}
-              >
-                {ch.label}
-              </button>
-            ))}
-            <div className="w-px h-4 bg-border" aria-hidden="true" />
-            {chapters.slice(6).map((ch) => (
-              <button
-                key={ch.id}
-                onClick={() => onChapterClick(ch.id)}
-                aria-current={activeChapter === ch.id ? 'true' : undefined}
-                aria-label={`Chapter ${ch.label}: ${ch.title}`}
-                className={`py-1.5 px-1.5 text-xs font-medium transition-colors duration-200 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
-                  activeChapter === ch.id
-                    ? 'text-primary'
-                    : 'text-muted-foreground hover:text-foreground'
-                }`}
-              >
-                {ch.label}
-              </button>
+          <div className="hidden md:flex items-center gap-1.5">
+            {chapters.map((ch) => (
+              <Tooltip key={ch.id}>
+                <TooltipTrigger asChild>
+                  <button
+                    onClick={() => onChapterClick(ch.id)}
+                    aria-current={activeChapter === ch.id ? 'true' : undefined}
+                    aria-label={`Chapter ${ch.label}: ${ch.title}`}
+                    className={`py-1.5 px-2 text-xs font-medium transition-colors duration-200 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+                      activeChapter === ch.id
+                        ? 'text-primary bg-primary/10'
+                        : 'text-muted-foreground hover:text-foreground hover:bg-secondary/60'
+                    }`}
+                  >
+                    {ch.label}
+                  </button>
+                </TooltipTrigger>
+                <TooltipContent side="bottom">{ch.title}</TooltipContent>
+              </Tooltip>
             ))}
           </div>
 

@@ -54,9 +54,26 @@ export default function MultiTouchSection() {
             onMouseLeave={clearTouchPoint}
             onTouchMove={handleTouchMove}
             onTouchEnd={clearTouchPoint}
+            onKeyDown={(e) => {
+              const rect = e.currentTarget.getBoundingClientRect();
+              const step = 8;
+              const next = touchPoint ?? { x: rect.width / 2, y: rect.height / 2 };
+              const move = (dx: number, dy: number) => {
+                e.preventDefault();
+                setTouchPoint({
+                  x: Math.min(rect.width - 8, Math.max(8, next.x + dx)),
+                  y: Math.min(rect.height - 8, Math.max(8, next.y + dy)),
+                });
+              };
+              if (e.key === 'ArrowUp') move(0, -step);
+              else if (e.key === 'ArrowDown') move(0, step);
+              else if (e.key === 'ArrowLeft') move(-step, 0);
+              else if (e.key === 'ArrowRight') move(step, 0);
+            }}
             className="relative bg-card border border-border rounded p-12 h-80 cursor-crosshair overflow-hidden touch-none"
-            role="application"
-            aria-label="Interactive touch sensing simulator. Move your pointer or finger across the surface."
+            role="img"
+            tabIndex={0}
+            aria-label="Interactive touch sensing simulator. Move your pointer or finger across the surface, or use the arrow keys to move the touch point."
           >
             {/* Grid background */}
             <svg className="absolute inset-0 w-full h-full opacity-10" aria-hidden="true">
@@ -105,7 +122,7 @@ export default function MultiTouchSection() {
               { title: 'Mutual Capacitance', desc: 'Sub-millimeter accuracy' },
               { title: 'Gesture Processing', desc: 'Real-time gesture recognition' },
             ].map((tech, idx) => (
-              <motion.div key={idx} whileHover={{ borderColor: 'var(--color-primary)' }}>
+              <motion.div key={idx}>
                 <GlowCard>
                   <Hand className="w-6 h-6 text-primary mb-3" strokeWidth={1.5} />
                   <h4 className="font-semibold mb-2">{tech.title}</h4>

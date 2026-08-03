@@ -1,4 +1,3 @@
-import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { MotionConfig } from "framer-motion";
 import NotFound from "@/pages/NotFound";
@@ -33,7 +32,6 @@ function App() {
       >
         <TooltipProvider>
           <MotionConfig reducedMotion="user">
-            <Toaster />
             <Router />
           </MotionConfig>
         </TooltipProvider>

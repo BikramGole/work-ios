@@ -50,8 +50,17 @@ const sections = [
 
 function SectionSkeleton() {
   return (
-    <div className="flex items-center justify-center h-64 text-muted-foreground text-sm animate-pulse" aria-hidden="true">
-      Loading…
+    <div className="container mx-auto px-4 py-24" aria-hidden="true">
+      <div className="flex flex-col items-center gap-4 mb-16">
+        <div className="h-6 w-36 rounded-full bg-muted animate-pulse" />
+        <div className="h-10 md:h-12 w-64 md:w-80 rounded-lg bg-muted animate-pulse" />
+        <div className="h-5 w-72 md:w-96 max-w-full rounded bg-muted animate-pulse" />
+      </div>
+      <div className="grid md:grid-cols-3 gap-6">
+        {[0, 1, 2].map((i) => (
+          <div key={i} className="h-44 rounded-xl bg-muted/60 animate-pulse" />
+        ))}
+      </div>
     </div>
   );
 }
@@ -122,7 +131,7 @@ export default function Home() {
         </section>
 
         {sections.map(({ id, Component }) => (
-          <section key={id} id={id} className="min-h-screen py-20">
+          <section key={id} id={id} className="min-h-screen">
             <Suspense fallback={<SectionSkeleton />}>
               <Component />
             </Suspense>
