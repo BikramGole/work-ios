@@ -75,30 +75,68 @@ export default function HeroSection() {
       <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] rounded-full bg-accent/10 blur-[100px] pointer-events-none" />
 
       <div className="relative z-10 container max-w-7xl mx-auto px-4 grid lg:grid-cols-[1.1fr_1fr] gap-12 items-center min-h-[calc(100vh-4rem)]">
-        {/* Left: copy */}
+        {/* Headline — first on mobile, left column on desktop */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="space-y-8 min-w-0"
+          className="min-w-0 lg:order-1"
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border bg-card/50 text-xs font-medium text-muted-foreground">
-            <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-            Interactive 3D · iPhone 17 Pro
+          <div className="space-y-8">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border bg-card/50 text-xs font-medium text-muted-foreground">
+              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+              Interactive 3D · iPhone 17 Pro
+            </div>
+
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.05]">
+              Understanding the Engineering Behind{' '}
+              <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                iOS
+              </span>
+            </h1>
+
+            <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl leading-relaxed">
+              Discover how Apple's hardware and software work together to deliver performance,
+              efficiency, security, and intelligence.
+            </p>
           </div>
+        </motion.div>
 
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.05]">
-            Understanding the Engineering Behind{' '}
-            <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              iOS
-            </span>
-          </h1>
+        {/* 3D canvas — second on mobile, right column on desktop */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.96 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1, delay: 0.3 }}
+          className="relative h-[380px] sm:h-[440px] md:h-[560px] lg:h-[620px] w-full min-w-0 rounded-2xl overflow-hidden border border-border/60 bg-gradient-to-b from-card/40 to-transparent lg:order-2"
+        >
+          <SceneErrorBoundary>
+            <Suspense
+              fallback={
+                <div className="absolute inset-0 flex items-center justify-center text-muted-foreground">
+                  <div className="flex flex-col items-center gap-3">
+                    <span className="animate-pulse">Loading 3D model…</span>
+                  </div>
+                </div>
+              }
+            >
+              <HeroModel
+                activeHotspot={activeHotspot}
+                onSelect={selectHotspot}
+                autoRotate={autoRotate}
+                onToggleRotate={() => setAutoRotate((r) => !r)}
+              />
+            </Suspense>
+          </SceneErrorBoundary>
+        </motion.div>
 
-          <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl leading-relaxed">
-            Discover how Apple's hardware and software work together to deliver performance,
-            efficiency, security, and intelligence.
-          </p>
 
+        {/* Chips + info + CTAs — third on mobile, left column under headline on desktop */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.25 }}
+          className="space-y-8 min-w-0 lg:order-3"
+        >
           {/* Hotspot selection chips */}
           <div className="flex flex-wrap gap-2 pt-2">
             {HOTSPOTS.map((h) => (
@@ -165,32 +203,6 @@ export default function HeroSection() {
           </motion.div>
         </motion.div>
 
-        {/* Right: 3D canvas */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.96 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.3 }}
-          className="relative h-[420px] md:h-[560px] lg:h-[620px] w-full min-w-0 rounded-2xl overflow-hidden border border-border/60 bg-gradient-to-b from-card/40 to-transparent"
-        >
-          <SceneErrorBoundary>
-            <Suspense
-              fallback={
-                <div className="absolute inset-0 flex items-center justify-center text-muted-foreground">
-                  <div className="flex flex-col items-center gap-3">
-                    <span className="animate-pulse">Loading 3D model…</span>
-                  </div>
-                </div>
-              }
-            >
-              <HeroModel
-                activeHotspot={activeHotspot}
-                onSelect={selectHotspot}
-                autoRotate={autoRotate}
-                onToggleRotate={() => setAutoRotate((r) => !r)}
-              />
-            </Suspense>
-          </SceneErrorBoundary>
-        </motion.div>
       </div>
     </div>
   );
