@@ -32,7 +32,7 @@ const technologies = [
             {technologies.map((tech, idx) => {
               const Icon = tech.icon;
               return (
-                <motion.div key={idx} whileHover={{ borderColor: 'var(--color-primary)' }}>
+                <motion.div key={idx}>
                   <GlowCard>
                     <div className="flex items-start justify-between mb-3">
                       <div className="flex items-center gap-3">

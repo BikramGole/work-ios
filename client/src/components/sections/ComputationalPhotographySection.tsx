@@ -56,7 +56,7 @@ const pipeline = [
               { title: 'Deep Fusion', desc: 'Semantic segmentation optimization' },
               { title: 'Smart HDR 5', desc: 'Extreme dynamic range blending' },
             ].map((feature, idx) => (
-              <motion.div key={idx} whileHover={{ borderColor: 'var(--color-primary)' }}>
+              <motion.div key={idx}>
                 <GlowCard>
                   <Camera className="w-6 h-6 text-primary mb-3" strokeWidth={1.5} />
                   <h4 className="font-semibold mb-2">{feature.title}</h4>

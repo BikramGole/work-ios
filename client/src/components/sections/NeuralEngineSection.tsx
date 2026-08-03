@@ -38,7 +38,7 @@ const applications = [
             {applications.map((app, idx) => {
               const Icon = app.icon;
               return (
-                <motion.div key={idx} whileHover={{ borderColor: 'var(--color-primary)' }}>
+                <motion.div key={idx}>
                   <GlowCard>
                     <Icon className="w-6 h-6 text-primary mb-3" strokeWidth={1.5} />
                     <h4 className="font-semibold mb-2">{app.title}</h4>

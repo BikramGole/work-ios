@@ -38,7 +38,7 @@ const specs = [
           <h3 className="text-2xl font-bold mb-8">Key Specifications</h3>
           <div className="grid md:grid-cols-2 gap-6">
             {specs.map((spec, idx) => (
-              <motion.div key={idx} whileHover={{ borderColor: 'var(--color-primary)' }}>
+              <motion.div key={idx}>
                 <GlowCard>
                   <p className="text-xs text-muted-foreground mb-2">{spec.label}</p>
                   <p className="text-2xl font-bold text-primary">{spec.value}</p>

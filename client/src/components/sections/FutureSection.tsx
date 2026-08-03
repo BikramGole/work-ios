@@ -1,15 +1,16 @@
 import { motion } from 'framer-motion';
 import { SectionHeader, sectionContainerVariants, sectionItemVariants } from '@/components/SectionHeader';
-import { Sparkles, Zap, Eye, RotateCcw } from 'lucide-react';
+import { scrollToId } from '@/lib/scroll';
+import { Sparkles, Zap, Eye, Scan, Cpu, Layers, RotateCcw } from 'lucide-react';
 import AnimatedCounter from '@/components/AnimatedCounter';
 
 export default function FutureSection() {
 const futureTechs = [
     { icon: Sparkles, title: 'Apple Intelligence', desc: 'On-device AI for smarter experiences' },
-    { icon: Eye, title: 'Spatial Computing', desc: 'Advanced AR capabilities' },
-    { icon: Zap, title: 'Vision Pro Integration', desc: 'Seamless spatial device connection' },
-    { icon: Eye, title: 'Advanced LiDAR', desc: 'Enhanced depth sensing' },
-    { icon: Zap, title: 'Next-Gen Silicon', desc: 'Continued performance improvements' },
+    { icon: Layers, title: 'Spatial Computing', desc: 'Advanced AR capabilities' },
+    { icon: Eye, title: 'Vision Pro Integration', desc: 'Seamless spatial device connection' },
+    { icon: Scan, title: 'Advanced LiDAR', desc: 'Enhanced depth sensing' },
+    { icon: Cpu, title: 'Next-Gen Silicon', desc: 'Continued performance improvements' },
     { icon: Sparkles, title: 'Quantum-Ready', desc: 'Preparation for quantum era' },
   ];
 
@@ -35,8 +36,8 @@ const futureTechs = [
             {futureTechs.map((tech, idx) => {
               const Icon = tech.icon;
               return (
-                <motion.div key={idx} whileHover={{ borderColor: 'var(--color-primary)' }}>
-                  <div className="p-6 bg-card border border-border rounded transition-colors duration-200 h-full">
+                <motion.div key={idx}>
+                  <div className="p-6 bg-card border border-border rounded transition-colors duration-200 h-full hover:border-primary/40">
                     <Icon className="w-6 h-6 text-primary mb-3" strokeWidth={1.5} />
                     <h4 className="font-semibold mb-2">{tech.title}</h4>
                     <p className="text-sm text-muted-foreground">{tech.desc}</p>
@@ -91,8 +92,8 @@ const futureTechs = [
           <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            onClick={() => document.getElementById('hero')?.scrollIntoView({ behavior: 'smooth' })}
-            className="px-8 py-3 bg-primary text-primary-foreground rounded font-semibold hover:bg-primary/90 transition-colors duration-200 inline-flex items-center gap-2"
+            onClick={() => scrollToId('hero')}
+            className="px-8 py-3 bg-primary text-primary-foreground rounded-full font-semibold hover:bg-primary/90 transition-colors duration-200 inline-flex items-center gap-2"
           >
             <RotateCcw size={16} />
             Start the Journey Again

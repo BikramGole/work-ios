@@ -60,7 +60,7 @@ const layers = [
               { title: 'Grand Central Dispatch', desc: 'Concurrent task management' },
               { title: 'Metal Graphics', desc: 'Low-level GPU access' },
             ].map((tech, idx) => (
-              <motion.div key={idx} whileHover={{ borderColor: 'var(--color-primary)' }}>
+              <motion.div key={idx}>
                 <GlowCard>
                   <h4 className="font-semibold mb-2">{tech.title}</h4>
                   <p className="text-sm text-muted-foreground">{tech.desc}</p>

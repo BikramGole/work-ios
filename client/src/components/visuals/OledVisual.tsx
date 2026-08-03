@@ -16,6 +16,8 @@ export default function OledVisual({ refreshRate }: OledVisualProps) {
       <svg
         viewBox={`0 0 ${cells * (cell + spacing) + spacing} ${rows * (cell + spacing) + spacing}`}
         className="w-full h-auto"
+        role="img"
+        aria-label="OLED pixel grid simulating self-illuminating sub-pixels with a refresh rate meter"
       >
         {Array.from({ length: rows }).map((_, r) =>
           Array.from({ length: cells }).map((_, c) => {

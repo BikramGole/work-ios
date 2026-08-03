@@ -32,7 +32,7 @@ const features = [
             {features.map((feature, idx) => {
               const Icon = feature.icon;
               return (
-                <motion.div key={idx} whileHover={{ borderColor: 'var(--color-primary)' }}>
+                <motion.div key={idx}>
                   <GlowCard>
                     <Icon className="w-6 h-6 text-primary mb-3" strokeWidth={1.5} />
                     <h4 className="font-semibold mb-2">{feature.title}</h4>
