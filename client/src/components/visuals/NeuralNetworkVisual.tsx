@@ -38,6 +38,8 @@ export default function NeuralNetworkVisual() {
           },
         };
 
+  const nodeInitial = { opacity: 0.4, r: 7 };
+
   return (
     <div className="relative overflow-hidden rounded-lg border border-border/60 bg-background/40 p-4">
       <svg viewBox="0 0 700 300" className="w-full h-auto" role="img" aria-label="Neural network diagram with five layers">
@@ -72,7 +74,7 @@ export default function NeuralNetworkVisual() {
               fill="var(--color-card)"
               stroke={li === 2 && i === 3 ? 'var(--color-accent)' : 'var(--color-primary)'}
               strokeWidth="1.5"
-              initial={{ opacity: 0.4 }}
+              initial={nodeInitial}
               animate={nodeMotion(li === 2 && i === 3)}
               transition={reducedMotion ? undefined : nodeMotion(li === 2 && i === 3).transition}
             />

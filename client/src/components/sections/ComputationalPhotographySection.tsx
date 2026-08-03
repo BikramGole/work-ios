@@ -47,6 +47,42 @@ const pipeline = [
           </div>
         </motion.div>
 
+        {/* Real-world results */}
+        <motion.div variants={sectionItemVariants}>
+          <h3 className="text-2xl font-bold mb-2">Real-World Results</h3>
+          <p className="text-muted-foreground mb-6">
+            Night Mode extends exposure while the Neural Engine fuses frames — scenes like these are captured hand-held, in one tap.
+          </p>
+          <div className="grid md:grid-cols-2 gap-6">
+            <figure className="group relative overflow-hidden rounded-2xl border border-border bg-card">
+              <img
+                src="/images/night-mode.jpg"
+                alt="City street at night photographed on a smartphone — the kind of low-light scene Night Mode and Deep Fusion are built for"
+                className="w-full h-64 md:h-80 object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                loading="lazy"
+                width={1600}
+                height={1067}
+              />
+              <figcaption className="px-4 py-3 text-xs text-muted-foreground border-t border-border">
+                Low-light city scene — Night Mode, multi-frame fusion
+              </figcaption>
+            </figure>
+            <figure className="group relative overflow-hidden rounded-2xl border border-border bg-card">
+              <img
+                src="/images/camera-lenses.jpg"
+                alt="Close-up of an iPhone camera module with three lenses visible"
+                className="w-full h-64 md:h-80 object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                loading="lazy"
+                width={1600}
+                height={1067}
+              />
+              <figcaption className="px-4 py-3 text-xs text-muted-foreground border-t border-border">
+                The Pro camera array — wide, ultra-wide and telephoto
+              </figcaption>
+            </figure>
+          </div>
+        </motion.div>
+
         {/* Key Features */}
         <motion.div variants={sectionItemVariants}>
           <h3 className="text-2xl font-bold mb-8">Advanced Features</h3>

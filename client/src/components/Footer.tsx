@@ -103,7 +103,7 @@ export default function Footer() {
 
         <div className="mt-10 pt-6 border-t border-border flex flex-col md:flex-row items-center justify-between gap-3">
           <p className="text-xs text-muted-foreground">
-            © {new Date().getFullYear()} C 3 Dev, 1 Bug
+            3 Dev, 1 Bug
           </p>
           <p className="text-xs text-muted-foreground">
             Built with React, Three.js & Tailwind CSS

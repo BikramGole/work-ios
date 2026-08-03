@@ -51,6 +51,23 @@ const technologies = [
           </div>
         </motion.div>
 
+        {/* Real-world infrastructure */}
+        <motion.div variants={sectionItemVariants}>
+          <figure className="group relative overflow-hidden rounded-2xl border border-border bg-card">
+            <img
+              src="/images/cell-tower.jpg"
+              alt="Cellular tower with 5G antennas against the sky — the infrastructure your iPhone connects to"
+              className="w-full h-72 md:h-96 object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+              loading="lazy"
+              width={1600}
+              height={1201}
+            />
+            <figcaption className="px-4 py-3 text-xs text-muted-foreground border-t border-border">
+              mmWave and sub-6 GHz antennas — a network of towers keeps the modem connected as you move
+            </figcaption>
+          </figure>
+        </motion.div>
+
         {/* Network Performance */}
         <motion.div variants={sectionItemVariants}>
           <h3 className="text-2xl font-bold mb-8">Performance Metrics</h3>

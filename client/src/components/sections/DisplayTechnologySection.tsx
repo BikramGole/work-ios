@@ -51,31 +51,46 @@ const specs = [
         {/* ProMotion Technology */}
         <motion.div variants={sectionItemVariants}>
           <h3 className="text-2xl font-bold mb-8">ProMotion: Adaptive Refresh Rate</h3>
-          <div className="bg-card border border-border rounded p-8">
-            <div className="space-y-6">
-              <div>
-                <label className="block text-sm font-semibold mb-4">Refresh Rate: {refreshRate}Hz</label>
-                <input
-                  type="range"
-                  min="1"
-                  max="120"
-                  value={refreshRate}
-                  onChange={(e) => setRefreshRate(Number(e.target.value))}
-                  className="w-full"
-                />
-              </div>
-              <div className="grid grid-cols-3 gap-4">
-                <div className="p-4 bg-secondary border border-border rounded">
-                  <p className="text-xs text-muted-foreground mb-2">Battery Life</p>
-                  <div className="text-2xl font-bold text-primary">{(100 - refreshRate / 1.2).toFixed(0)}%</div>
+          <div className="grid md:grid-cols-2 gap-6">
+            <figure className="group relative overflow-hidden rounded-2xl border border-border bg-card">
+              <img
+                src="/images/display-oled.jpg"
+                alt="Close-up of an iPhone display glowing in the dark, showing the self-emissive OLED panel"
+                className="w-full h-full min-h-72 object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                loading="lazy"
+                width={1600}
+                height={2400}
+              />
+              <figcaption className="px-4 py-3 text-xs text-muted-foreground border-t border-border">
+                Each pixel emits its own light — true blacks, no backlight
+              </figcaption>
+            </figure>
+            <div className="bg-card border border-border rounded p-8">
+              <div className="space-y-6">
+                <div>
+                  <label className="block text-sm font-semibold mb-4">Refresh Rate: {refreshRate}Hz</label>
+                  <input
+                    type="range"
+                    min="1"
+                    max="120"
+                    value={refreshRate}
+                    onChange={(e) => setRefreshRate(Number(e.target.value))}
+                    className="w-full"
+                  />
                 </div>
-                <div className="p-4 bg-secondary border border-border rounded">
-                  <p className="text-xs text-muted-foreground mb-2">Smoothness</p>
-                  <div className="text-2xl font-bold text-primary">{(refreshRate / 1.2).toFixed(0)}%</div>
-                </div>
-                <div className="p-4 bg-secondary border border-border rounded">
-                  <p className="text-xs text-muted-foreground mb-2">Latency</p>
-                  <div className="text-2xl font-bold text-primary">{(8.33 * (120 / refreshRate)).toFixed(2)}ms</div>
+                <div className="grid grid-cols-3 gap-4">
+                  <div className="p-4 bg-secondary border border-border rounded">
+                    <p className="text-xs text-muted-foreground mb-2">Battery Life</p>
+                    <div className="text-2xl font-bold text-primary">{(100 - refreshRate / 1.2).toFixed(0)}%</div>
+                  </div>
+                  <div className="p-4 bg-secondary border border-border rounded">
+                    <p className="text-xs text-muted-foreground mb-2">Smoothness</p>
+                    <div className="text-2xl font-bold text-primary">{(refreshRate / 1.2).toFixed(0)}%</div>
+                  </div>
+                  <div className="p-4 bg-secondary border border-border rounded">
+                    <p className="text-xs text-muted-foreground mb-2">Latency</p>
+                    <div className="text-2xl font-bold text-primary">{(8.33 * (120 / refreshRate)).toFixed(2)}ms</div>
+                  </div>
                 </div>
               </div>
             </div>

@@ -2,7 +2,7 @@ import { useLayoutEffect, useCallback, useState, Suspense, lazy, useRef } from '
 import { motion, useInView, useReducedMotion } from 'framer-motion';
 import { Loader2, RotateCcw } from 'lucide-react';
 import { useGLTF } from '@react-three/drei/core/Gltf';
-import { Vector3, DoubleSide, PCFShadowMap } from 'three';
+import { Vector3, PCFShadowMap } from 'three';
 import type { Mesh as ThreeMesh } from 'three';
 import { HOTSPOTS } from './hotspotData';
 
@@ -127,12 +127,18 @@ function Scene({
         onPositionsReady={onPositionsReady}
       />
 
+      {/* Studio backdrop — masks the page behind the open shell so the
+          model's back reads as a solid dark studio, not a see-through void */}
+      <mesh position={[0, 0, -3.5]}>
+        <planeGeometry args={[14, 14]} />
+        <meshBasicMaterial color="#05060b" />
+      </mesh>
+
       {/* Hotspot markers — world-space siblings so they track the model rotation */}
       {hasHotspots &&
         HOTSPOTS.map((h) => {
           const pos = hotspotPositions[h.id];
           if (!pos) return null;
-          const active = activeHotspot === h.id;
           return (
             <group key={h.id} position={pos}>
               <mesh
@@ -143,23 +149,6 @@ function Scene({
               >
                 <sphereGeometry args={[0.3, 16, 16]} />
                 <meshBasicMaterial transparent opacity={0} depthWrite={false} />
-              </mesh>
-              <mesh position={[0, 0.18, 0]}>
-                <ringGeometry args={[0.055, 0.07, 32]} />
-                <meshBasicMaterial
-                  color={active ? '#3b82f6' : '#6b7280'}
-                  transparent
-                  opacity={active ? 1 : 0.55}
-                  side={DoubleSide}
-                />
-              </mesh>
-              <mesh position={[0, 0.18, 0]}>
-                <sphereGeometry args={[0.015, 12, 12]} />
-                <meshBasicMaterial
-                  color={active ? '#3b82f6' : '#9ca3af'}
-                  transparent
-                  opacity={active ? 1 : 0.7}
-                />
               </mesh>
             </group>
           );
