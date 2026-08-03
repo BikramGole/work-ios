@@ -1,4 +1,4 @@
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, useReducedMotion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 
 interface AnimatedCounterProps {
@@ -12,24 +12,27 @@ interface AnimatedCounterProps {
 export default function AnimatedCounter({ end, label, suffix = '', duration = 2, decimals = 0 }: AnimatedCounterProps) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
+  const reducedMotion = useReducedMotion();
   const [count, setCount] = useState(0);
 
   useEffect(() => {
     if (!inView) return;
-    let start = 0;
-    const increment = end / (duration * 60);
-    const interval = setInterval(() => {
-      start += increment;
-      if (start >= end) {
-        setCount(end);
-        clearInterval(interval);
-      } else {
-        setCount(start);
-      }
-    }, 1000 / 60);
-
-    return () => clearInterval(interval);
-  }, [inView, end, duration]);
+    if (reducedMotion) {
+      setCount(end);
+      return;
+    }
+    let raf = 0;
+    const startTime = performance.now();
+    const tick = (now: number) => {
+      const t = Math.min((now - startTime) / (duration * 1000), 1);
+      const eased = 1 - Math.pow(1 - t, 3);
+      setCount(end * eased);
+      if (t < 1) raf = requestAnimationFrame(tick);
+      else setCount(end);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [inView, end, duration, reducedMotion]);
 
   return (
     <motion.div
