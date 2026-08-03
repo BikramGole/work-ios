@@ -259,7 +259,7 @@ export default function HeroModel({
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.8 }}
         onClick={onToggleRotate}
-        className="absolute top-4 right-4 px-3 py-1.5 rounded-full bg-background/60 backdrop-blur-md border border-border/60 text-[11px] text-muted-foreground hover:text-foreground hover:border-primary/40 transition-colors inline-flex items-center gap-1.5"
+        className="absolute top-4 right-4 px-3 py-2 rounded-full bg-background/60 backdrop-blur-md border border-border/60 text-[11px] text-muted-foreground hover:text-foreground hover:border-primary/40 transition-colors inline-flex items-center gap-1.5 min-h-10"
       >
         <RotateCcw size={12} />
         {autoRotate ? 'Pause' : 'Resume'}

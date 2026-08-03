@@ -72,7 +72,7 @@ export default function Navigation({ activeChapter, chapters, onChapterClick }: 
               e.preventDefault();
               onChapterClick('hero');
             }}
-            className="flex items-center gap-2 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            className="flex items-center gap-2 py-1.5 pr-1 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
             <svg viewBox="0 0 24 24" className="w-6 h-6 text-primary" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
               <rect x="3" y="3" width="18" height="18" rx="5" />
@@ -91,7 +91,7 @@ export default function Navigation({ activeChapter, chapters, onChapterClick }: 
                 onClick={() => onChapterClick(ch.id)}
                 aria-current={activeChapter === ch.id ? 'true' : undefined}
                 aria-label={`Chapter ${ch.label}: ${ch.title}`}
-                className={`text-xs font-medium transition-colors duration-200 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+                className={`py-1.5 px-1.5 text-xs font-medium transition-colors duration-200 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
                   activeChapter === ch.id
                     ? 'text-primary'
                     : 'text-muted-foreground hover:text-foreground'
@@ -107,7 +107,7 @@ export default function Navigation({ activeChapter, chapters, onChapterClick }: 
                 onClick={() => onChapterClick(ch.id)}
                 aria-current={activeChapter === ch.id ? 'true' : undefined}
                 aria-label={`Chapter ${ch.label}: ${ch.title}`}
-                className={`text-xs font-medium transition-colors duration-200 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+                className={`py-1.5 px-1.5 text-xs font-medium transition-colors duration-200 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
                   activeChapter === ch.id
                     ? 'text-primary'
                     : 'text-muted-foreground hover:text-foreground'
@@ -124,7 +124,7 @@ export default function Navigation({ activeChapter, chapters, onChapterClick }: 
               <button
                 onClick={toggleTheme}
                 aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-                className="p-2 hover:bg-secondary rounded transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                className="p-2.5 min-w-10 min-h-10 flex items-center justify-center hover:bg-secondary rounded transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
               </button>
@@ -135,7 +135,7 @@ export default function Navigation({ activeChapter, chapters, onChapterClick }: 
               aria-expanded={isOpen}
               aria-controls="mobile-chapter-menu"
               aria-label={isOpen ? 'Close chapter menu' : 'Open chapter menu'}
-              className="md:hidden p-2 hover:bg-secondary rounded transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              className="md:hidden p-2.5 min-w-10 min-h-10 flex items-center justify-center hover:bg-secondary rounded transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
               {isOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
@@ -156,7 +156,7 @@ export default function Navigation({ activeChapter, chapters, onChapterClick }: 
                   data-menu-item
                   onClick={() => handleSelect(ch.id)}
                   aria-current={activeChapter === ch.id ? 'true' : undefined}
-                  className={`px-2 py-2 rounded text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+                  className={`px-2 py-2.5 rounded text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
                     activeChapter === ch.id
                       ? 'bg-primary text-primary-foreground'
                       : 'bg-secondary text-foreground hover:bg-secondary/80'

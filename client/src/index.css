@@ -63,7 +63,7 @@
   --secondary-foreground: oklch(0.24 0.01 280);
   --muted: oklch(0.93 0.008 280);
   --muted-foreground: oklch(0.44 0.015 280);
-  --accent: oklch(0.80 0.12 200);
+  --accent: oklch(0.55 0.16 205);
   --accent-foreground: oklch(0.16 0.01 280);
   --destructive: oklch(0.60 0.18 25);
   --destructive-foreground: oklch(0.96 0.008 65);
@@ -79,9 +79,9 @@
 }
 
 .dark {
-  --primary: oklch(0.55 0.24 260);
+  --primary: oklch(0.58 0.24 260);
   --primary-foreground: oklch(0.98 0.01 65);
-  --sidebar-primary: oklch(0.55 0.24 260);
+  --sidebar-primary: oklch(0.58 0.24 260);
   --sidebar-primary-foreground: oklch(0.98 0.01 65);
   --background: oklch(0.08 0.005 280);
   --foreground: oklch(0.96 0.008 65);
@@ -99,7 +99,7 @@
   --destructive-foreground: oklch(0.96 0.008 65);
   --border: oklch(0.18 0.008 280);
   --input: oklch(0.14 0.006 280);
-  --ring: oklch(0.55 0.24 260);
+  --ring: oklch(0.58 0.24 260);
   --chart-1: oklch(0.60 0.20 200);
   --chart-2: oklch(0.55 0.24 260);
   --chart-3: oklch(0.50 0.18 280);
@@ -274,4 +274,35 @@
 :focus-visible {
   outline: 2px solid var(--ring);
   outline-offset: 2px;
+}
+
+/* Keep anchored sections clear of the fixed navigation bar */
+[id] {
+  scroll-margin-top: 4rem;
+}
+
+/* Smooth native anchor scrolling, unless the user prefers reduced motion */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Skip link: off-screen until focused */
+.skip-link {
+  position: fixed;
+  top: -100%;
+  left: 1rem;
+  z-index: 100;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.5rem;
+  background: var(--primary);
+  color: var(--primary-foreground);
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: top 0.15s ease;
+}
+
+.skip-link:focus-visible {
+  top: 0.75rem;
 }

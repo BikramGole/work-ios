@@ -107,10 +107,16 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <a
+        href="#main"
+        className="skip-link"
+      >
+        Skip to content
+      </a>
       <ProgressIndicator progress={scrollProgress} />
       <Navigation activeChapter={activeChapter} chapters={chapters} onChapterClick={scrollToSection} />
 
-      <main>
+      <main id="main" tabIndex={-1}>
         <section id="hero" className="min-h-screen">
           <HeroSection />
         </section>

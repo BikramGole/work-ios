@@ -52,7 +52,7 @@ export default function Footer() {
                 <li key={ch.id}>
                   <button
                     onClick={() => scrollTo(ch.id)}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors text-left"
+                    className="text-sm text-muted-foreground hover:text-foreground transition-colors text-left py-1.5 inline-block"
                   >
                     {ch.label}
                   </button>
@@ -68,7 +68,7 @@ export default function Footer() {
               <li>
                 <button
                   onClick={() => scrollTo('hero')}
-                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors py-1.5 inline-block"
                 >
                   Interactive 3D Model
                 </button>
@@ -76,7 +76,7 @@ export default function Footer() {
               <li>
                 <button
                   onClick={() => scrollTo('touch')}
-                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors py-1.5 inline-block"
                 >
                   Touch Simulation
                 </button>
@@ -84,7 +84,7 @@ export default function Footer() {
               <li>
                 <button
                   onClick={() => scrollTo('silicon')}
-                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors py-1.5 inline-block"
                 >
                   Chip Anatomy
                 </button>
@@ -92,7 +92,7 @@ export default function Footer() {
               <li>
                 <button
                   onClick={() => scrollTo('display')}
-                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors py-1.5 inline-block"
                 >
                   OLED Pixel Lab
                 </button>

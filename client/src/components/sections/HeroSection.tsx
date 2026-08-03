@@ -2,6 +2,7 @@ import { useState, lazy, Suspense, Component, type ReactNode } from 'react';
 import { motion } from 'framer-motion';
 import { RotateCcw, Cpu, Camera, Maximize2, AlertTriangle } from 'lucide-react';
 import { HOTSPOTS, type HotspotDef } from './hotspotData';
+import { scrollToId } from '@/lib/scroll';
 
 const HeroModel = lazy(() => import('./HeroModel').then((m) => ({ default: m.default })));
 
@@ -79,7 +80,7 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="space-y-8"
+          className="space-y-8 min-w-0"
         >
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border bg-card/50 text-xs font-medium text-muted-foreground">
             <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
@@ -104,7 +105,7 @@ export default function HeroSection() {
               <button
                 key={h.id}
                 onClick={() => selectHotspot(h.id)}
-                className={`px-4 py-2 rounded-full border text-sm font-medium transition-all duration-200 ${
+                className={`px-4 py-2.5 min-h-10 rounded-full border text-sm font-medium transition-all duration-200 inline-flex items-center ${
                   activeHotspot === h.id
                     ? 'border-primary bg-primary/15 text-primary shadow-[0_0_20px_rgba(59,130,246,0.25)]'
                     : 'border-border bg-card/60 text-muted-foreground hover:text-foreground hover:border-foreground/30'
@@ -150,14 +151,14 @@ export default function HeroSection() {
           >
             <button
               onClick={() => setAutoRotate((r) => !r)}
-              className="px-8 py-3 bg-primary text-primary-foreground rounded font-semibold hover:bg-primary/90 transition-colors duration-200 inline-flex items-center gap-2"
+              className="px-8 py-3 bg-primary text-primary-foreground rounded-full font-semibold hover:bg-primary/90 transition-colors duration-200 inline-flex items-center gap-2"
             >
               <RotateCcw size={16} />
               {autoRotate ? 'Pause Rotation' : 'Resume Rotation'}
             </button>
             <button
-              onClick={() => document.getElementById('architecture')?.scrollIntoView({ behavior: 'smooth' })}
-              className="px-8 py-3 border border-border text-foreground rounded font-semibold hover:border-primary/50 hover:text-primary transition-colors duration-200"
+              onClick={() => scrollToId('architecture')}
+              className="px-8 py-3 border border-border text-foreground rounded-full font-semibold hover:border-primary/50 hover:text-primary transition-colors duration-200"
             >
               Explore the Chapters
             </button>
@@ -169,7 +170,7 @@ export default function HeroSection() {
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.3 }}
-          className="relative h-[420px] md:h-[560px] lg:h-[620px] rounded-2xl overflow-hidden border border-border/60 bg-gradient-to-b from-card/40 to-transparent"
+          className="relative h-[420px] md:h-[560px] lg:h-[620px] w-full min-w-0 rounded-2xl overflow-hidden border border-border/60 bg-gradient-to-b from-card/40 to-transparent"
         >
           <SceneErrorBoundary>
             <Suspense
