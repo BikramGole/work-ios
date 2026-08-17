@@ -21,17 +21,17 @@ const FutureSection = memo(lazy(() => import('@/components/sections/FutureSectio
 
 const chapters = [
   { id: 'hero', title: 'Understanding iOS Engineering', label: 'Intro' },
-  { id: 'architecture', title: 'System Architecture', label: '1' },
-  { id: 'silicon', title: 'Apple Silicon', label: '2' },
-  { id: 'neural', title: 'Neural Engine', label: '3' },
-  { id: 'touch', title: 'Multi-Touch Display', label: '4' },
-  { id: 'display', title: 'Display Technology', label: '5' },
-  { id: 'photography', title: 'Computational Photography', label: '6' },
-  { id: 'battery', title: 'Battery & Thermal', label: '7' },
-  { id: 'software', title: 'iOS Software', label: '8' },
-  { id: 'security', title: 'Security', label: '9' },
-  { id: 'networking', title: 'Networking', label: '10' },
-  { id: 'future', title: 'Future Technologies', label: '11' },
+  { id: 'architecture', title: 'System Architecture', label: 'Architecture' },
+  { id: 'silicon', title: 'Apple Silicon', label: 'Silicon' },
+  { id: 'neural', title: 'Neural Engine', label: 'Neural' },
+  { id: 'touch', title: 'Multi-Touch Display', label: 'Touch' },
+  { id: 'display', title: 'Display Technology', label: 'Display' },
+  { id: 'photography', title: 'Computational Photography', label: 'Camera' },
+  { id: 'battery', title: 'Battery & Thermal', label: 'Battery' },
+  { id: 'software', title: 'iOS Software', label: 'iOS' },
+  { id: 'security', title: 'Security', label: 'Security' },
+  { id: 'networking', title: 'Networking', label: 'Network' },
+  { id: 'future', title: 'Future Technologies', label: 'Future' },
 ];
 
 const sections = [

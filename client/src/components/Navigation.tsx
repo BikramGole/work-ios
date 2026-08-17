@@ -64,9 +64,9 @@ export default function Navigation({ activeChapter, chapters, onChapterClick }: 
       {/* Desktop Navigation */}
       <nav
         aria-label="Chapters"
-        className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-sm border-b border-border"
+        className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border shadow-lg shadow-primary/10"
       >
-        <div className="container flex items-center justify-between h-14">
+        <div className="container flex items-center justify-between h-16 gap-4">
           <a
             href="#hero"
             onClick={(e) => {
@@ -78,11 +78,11 @@ export default function Navigation({ activeChapter, chapters, onChapterClick }: 
             <svg viewBox="0 0 24 24" className="w-6 h-6 text-primary" fill="currentColor" aria-hidden="true">
               <path d="M18.71 19.5C17.88 20.74 17 21.95 15.66 21.97C14.32 22 13.89 21.18 12.37 21.18C10.84 21.18 10.37 21.95 9.09997 22C7.78997 22.05 6.79997 20.68 5.95997 19.47C4.24997 17 2.93997 12.45 4.69997 9.39C5.56997 7.87 7.12997 6.91 8.81997 6.88C10.1 6.86 11.32 7.75 12.11 7.75C12.89 7.75 14.37 6.68 15.92 6.84C16.57 6.87 18.39 7.1 19.56 8.82C19.47 8.88 17.39 10.1 17.41 12.63C17.44 15.65 20.06 16.66 20.09 16.67C20.06 16.74 19.67 18.11 18.71 19.5ZM13 3.5C13.73 2.67 14.94 2.04 15.94 2C16.07 3.17 15.6 4.35 14.9 5.19C14.21 6.04 13.07 6.7 11.95 6.61C11.8 5.46 12.36 4.26 13 3.5Z" />
             </svg>
-            <span className="text-sm font-semibold text-foreground">iPhone Engineering</span>
+            <span className="text-base font-bold text-foreground tracking-tight">iPhone Engineering</span>
           </a>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex items-center gap-1.5">
+          <div className="hidden lg:flex items-center gap-1">
             {chapters.map((ch) => (
               <Tooltip key={ch.id}>
                 <TooltipTrigger asChild>
@@ -90,10 +90,10 @@ export default function Navigation({ activeChapter, chapters, onChapterClick }: 
                     onClick={() => onChapterClick(ch.id)}
                     aria-current={activeChapter === ch.id ? 'true' : undefined}
                     aria-label={`Chapter ${ch.label}: ${ch.title}`}
-                    className={`py-1.5 px-2 text-xs font-medium transition-colors duration-200 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+                    className={`py-2 px-3 text-sm font-bold transition-colors duration-200 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
                       activeChapter === ch.id
-                        ? 'text-primary bg-primary/10'
-                        : 'text-muted-foreground hover:text-foreground hover:bg-secondary/60'
+                        ? 'text-primary-foreground bg-primary shadow-sm shadow-primary/30'
+                        : 'text-foreground hover:text-primary hover:bg-secondary'
                     }`}
                   >
                     {ch.label}
@@ -121,7 +121,7 @@ export default function Navigation({ activeChapter, chapters, onChapterClick }: 
               aria-expanded={isOpen}
               aria-controls="mobile-chapter-menu"
               aria-label={isOpen ? 'Close chapter menu' : 'Open chapter menu'}
-              className="md:hidden p-2.5 min-w-10 min-h-10 flex items-center justify-center hover:bg-secondary rounded transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              className="lg:hidden p-2.5 min-w-10 min-h-10 flex items-center justify-center hover:bg-secondary rounded transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
               {isOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
@@ -133,7 +133,7 @@ export default function Navigation({ activeChapter, chapters, onChapterClick }: 
           <div
             id="mobile-chapter-menu"
             ref={menuRef}
-            className="md:hidden border-t border-border bg-background/95 backdrop-blur-sm"
+            className="lg:hidden border-t border-border bg-background/98 backdrop-blur-md"
           >
             <div className="container py-3 grid grid-cols-4 gap-2">
               {chapters.map((ch) => (
@@ -157,7 +157,7 @@ export default function Navigation({ activeChapter, chapters, onChapterClick }: 
       </nav>
 
       {/* Spacer */}
-      <div className="h-14" />
+      <div className="h-16" />
     </>
   );
 }
